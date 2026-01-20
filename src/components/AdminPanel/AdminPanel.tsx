@@ -24,6 +24,7 @@ import ViewInvoiceModal from './ViewInvoiceModal';
 import ApproveRejectModal from './ApproveRejectModal';
 import ViewPayoutModal from './ViewPayoutModal';
 import ProcessPayoutModal from './ProcessPayoutModal';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
 interface AdminPanelState {
   activeTab: 'clients' | 'invoices' | 'payout';
@@ -708,6 +709,12 @@ class AdminPanel extends Component<{}, AdminPanelState> {
 
         <main className={styles.admin__main}>
           <div className={styles.admin__container}>
+            <Breadcrumbs
+              items={[
+                { label: 'Home', href: '/' },
+                { label: 'Admin Panel' },
+              ]}
+            />
             <div className={styles.admin__section}>
               {activeTab === 'clients' && (
                 <>

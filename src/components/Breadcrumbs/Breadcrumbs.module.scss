@@ -1,0 +1,46 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.breadcrumbs {
+  margin-bottom: $spacing-lg;
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: $spacing-xs;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: $spacing-xs;
+  }
+
+  &__link {
+    color: $text-secondary;
+    text-decoration: none;
+    font-size: $font-size-sm;
+    @include transition(color);
+
+    &:hover {
+      color: $primary;
+      text-decoration: underline;
+    }
+  }
+
+  &__current {
+    color: $text-primary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+  }
+
+  &__separator {
+    color: $text-light;
+    font-size: $font-size-sm;
+    margin: 0 $spacing-xs;
+  }
+}

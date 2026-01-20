@@ -8,6 +8,7 @@ import Step3Debtors from './steps/Step3Debtors';
 import Step4Contract from './steps/Step4Contract';
 import { mockUser } from '@/data/mockData';
 import { authService } from '@/utils/auth';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
 interface OnboardingState {
   currentStep: number;
@@ -162,6 +163,12 @@ class Onboarding extends Component<{}, OnboardingState> {
     return (
       <div className={styles.onboarding}>
         <div className={styles.onboarding__container}>
+          <Breadcrumbs
+            items={[
+              { label: 'Home', href: '/' },
+              { label: 'Onboarding' },
+            ]}
+          />
           <div className={styles.onboarding__header}>
             <h1 className={styles.onboarding__title}>Welcome to BillMate.io</h1>
             <p className={styles.onboarding__subtitle}>

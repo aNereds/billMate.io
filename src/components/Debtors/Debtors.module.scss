@@ -1,7 +1,7 @@
 @import '../../styles/variables';
 @import '../../styles/mixins';
 
-.analytics {
+.debtors {
   min-height: 100vh;
   background-color: $bg-secondary;
 
@@ -51,7 +51,7 @@
     }
 
     &_active {
-      @extend .analytics__nav_link;
+      @extend .debtors__nav_link;
       color: $primary;
       font-weight: $font-weight-semibold;
     }
@@ -70,6 +70,8 @@
   }
 
   &__user_icon {
+    font-size: $font-size-lg;
+
     @media (max-width: 1024px) {
       display: none;
     }
@@ -87,10 +89,6 @@
     @media (max-width: 1024px) {
       display: none;
     }
-  }
-
-  &__user_icon {
-    font-size: $font-size-lg;
   }
 
   &__logout_button {
@@ -226,7 +224,15 @@
   }
 
   &__header_section {
+    @include flex-between;
     margin-bottom: $spacing-2xl;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+
+    @include mobile {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 
   &__title {
@@ -246,6 +252,17 @@
 
     @include mobile {
       font-size: $font-size-base;
+    }
+  }
+
+  &__add_button {
+    @include button-base;
+    background-color: $primary;
+    color: white;
+    padding: $spacing-md $spacing-xl;
+
+    &:hover {
+      background-color: $primary-dark;
     }
   }
 
@@ -285,10 +302,6 @@
     font-weight: $font-weight-medium;
     color: $text-primary;
     white-space: nowrap;
-
-    @include mobile {
-      font-size: $font-size-xs;
-    }
   }
 
   &__filter_buttons {
@@ -316,7 +329,6 @@
       padding: $spacing-xs $spacing-sm;
       font-size: $font-size-xs;
       flex: 1;
-      min-width: 0;
     }
 
     &:hover {
@@ -324,7 +336,7 @@
       color: $text-primary;
     }
 
-    &_active {
+    &--active {
       background-color: $primary;
       color: white;
       border-color: $primary;
@@ -355,7 +367,7 @@
     border: 1px solid $border-color;
   }
 
-  &__summary_title {
+  &__summary_label {
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
     color: $text-secondary;
@@ -364,33 +376,21 @@
     letter-spacing: 0.5px;
   }
 
-  &__summary_amount {
+  &__summary_value {
     font-size: $font-size-3xl;
     font-weight: $font-weight-bold;
     color: $text-primary;
-    margin-bottom: $spacing-xs;
 
     @include mobile {
       font-size: $font-size-2xl;
     }
   }
 
-  &__summary_change {
-    font-size: $font-size-sm;
-    color: $text-secondary;
-    font-weight: $font-weight-medium;
-  }
-
-  &__summary_change_positive {
-    font-size: $font-size-sm;
-    color: $success;
-    font-weight: $font-weight-medium;
-  }
-
   &__charts {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: $spacing-xl;
+    margin-bottom: $spacing-2xl;
 
     @include mobile {
       grid-template-columns: 1fr;
@@ -410,6 +410,146 @@
     font-weight: $font-weight-bold;
     color: $text-primary;
     margin-bottom: $spacing-lg;
+  }
+
+  &__table_section {
+    background-color: $bg-primary;
+    border-radius: $radius-xl;
+    padding: $spacing-xl;
+    box-shadow: $shadow-sm;
+    border: 1px solid $border-color;
+  }
+
+  &__section_title {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+    margin-bottom: $spacing-lg;
+  }
+
+  &__table_wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+
+    @include mobile {
+      margin: 0 -$spacing-md;
+      padding: 0 $spacing-md;
+    }
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: $font-size-sm;
+    min-width: 600px;
+
+    @include mobile {
+      font-size: $font-size-xs;
+    }
+
+    th {
+      padding: $spacing-md $spacing-lg;
+      text-align: left;
+      font-weight: $font-weight-semibold;
+      color: $text-primary;
+      border-bottom: 2px solid $border-color;
+      background-color: $bg-secondary;
+      font-size: $font-size-xs;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      padding: $spacing-md $spacing-lg;
+      border-bottom: 1px solid $border-color;
+      color: $text-primary;
+      vertical-align: middle;
+    }
+
+    tbody tr {
+      @include transition(background-color);
+
+      &:hover {
+        background-color: $bg-secondary;
+      }
+
+      &:last-child td {
+        border-bottom: none;
+      }
+    }
+  }
+
+  &__status {
+    display: inline-block;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $radius-full;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    text-transform: capitalize;
+    white-space: nowrap;
+
+    &--approved {
+      background-color: rgba($success, 0.1);
+      color: $success;
+    }
+
+    &--processing {
+      background-color: rgba($primary, 0.1);
+      color: $primary;
+    }
+
+    &--pending {
+      background-color: rgba($warning, 0.1);
+      color: $warning;
+    }
+
+    &--paid {
+      background-color: rgba($primary, 0.1);
+      color: $primary;
+    }
+
+    &--rejected {
+      background-color: rgba($error, 0.1);
+      color: $error;
+    }
+
+    &--blocked {
+      background-color: rgba($error, 0.1);
+      color: $error;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: $spacing-xs;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  &__action_button {
+    @include button-base;
+    background-color: $primary;
+    color: white;
+    padding: $spacing-xs $spacing-sm;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    border-radius: $radius-md;
+    white-space: nowrap;
+    @include transition(all);
+
+    &:hover {
+      background-color: $primary-dark;
+      transform: translateY(-1px);
+      box-shadow: $shadow-sm;
+    }
+
+    &--delete {
+      background-color: $error;
+
+      &:hover {
+        background-color: #dc2626;
+      }
+    }
   }
 }
 
