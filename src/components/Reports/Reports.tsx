@@ -6,6 +6,7 @@ import styles from './Reports.module.scss';
 import { authService } from '@/utils/auth';
 import { storageService } from '@/utils/storage';
 import ReportModal from './ReportModal';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
 interface Report {
   id: string;
@@ -21,6 +22,7 @@ interface ReportsState {
   reports: Report[];
   showReportModal: boolean;
   editingReport: Report | null;
+  isMobileMenuOpen: boolean;
 }
 
 const DEFAULT_REPORTS: Report[] = [
@@ -69,6 +71,7 @@ class Reports extends Component<{}, ReportsState> {
       reports: [],
       showReportModal: false,
       editingReport: null,
+      isMobileMenuOpen: false,
     };
   }
 
@@ -79,7 +82,30 @@ class Reports extends Component<{}, ReportsState> {
     }
 
     this.loadData();
+
+    // Close mobile menu on window resize
+    window.addEventListener('resize', this.handleResize);
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+
+  handleResize = () => {
+    if (window.innerWidth > 1024) {
+      this.setState({ isMobileMenuOpen: false });
+    }
+  };
+
+  handleToggleMobileMenu = () => {
+    this.setState((prevState) => ({
+      isMobileMenuOpen: !prevState.isMobileMenuOpen,
+    }));
+  };
+
+  handleCloseMobileMenu = () => {
+    this.setState({ isMobileMenuOpen: false });
+  };
 
   loadData = () => {
     const storedReports = storageService.getItems<Report>('billmate_reports');
@@ -176,19 +202,19 @@ class Reports extends Component<{}, ReportsState> {
           <div className={styles.reports__header_container}>
             <div className={styles.reports__logo}>BillMate.io</div>
             <nav className={styles.reports__nav}>
-              <Link href="/dashboard/analytics" className={styles.reports__nav_link}>
+              <Link
+                href="/dashboard/analytics"
+                className={styles.reports__nav_link}
+              >
                 Dashboard
               </Link>
-              <Link href="/error" className={styles.reports__nav_link}>
+              <Link href="/invoices" className={styles.reports__nav_link}>
                 Invoices
               </Link>
-              <Link href="/error" className={styles.reports__nav_link}>
+              <Link href="/debtors" className={styles.reports__nav_link}>
                 Debtors
               </Link>
-              <Link
-                href="/reports"
-                className={`${styles.reports__nav_link} ${styles['reports__nav_link--active']}`}
-              >
+              <Link href="/reports" className={styles.reports__nav_link}>
                 Reports
               </Link>
               <Link href="/settings" className={styles.reports__nav_link}>
@@ -197,7 +223,7 @@ class Reports extends Component<{}, ReportsState> {
             </nav>
             <div className={styles.reports__user}>
               <span className={styles.reports__user_icon}>👤</span>
-              <Link href="/admin">Admin</Link>
+              <Link href="/admin" className={styles.reports__admin_link}>Admin</Link>
               <button
                 onClick={this.handleLogout}
                 className={styles.reports__logout_button}
@@ -205,11 +231,99 @@ class Reports extends Component<{}, ReportsState> {
                 Logout
               </button>
             </div>
+            <button
+              className={styles.reports__burger}
+              onClick={this.handleToggleMobileMenu}
+              aria-label="Toggle menu"
+            >
+              <span
+                className={`${styles.reports__burger_line} ${
+                  this.state.isMobileMenuOpen
+                    ? styles['reports__burger_line--open']
+                    : ''
+                }`}
+              ></span>
+              <span
+                className={`${styles.reports__burger_line} ${
+                  this.state.isMobileMenuOpen
+                    ? styles['reports__burger_line--open']
+                    : ''
+                }`}
+              ></span>
+              <span
+                className={`${styles.reports__burger_line} ${
+                  this.state.isMobileMenuOpen
+                    ? styles['reports__burger_line--open']
+                    : ''
+                }`}
+              ></span>
+            </button>
           </div>
+          {this.state.isMobileMenuOpen && (
+            <div className={styles.reports__mobile_menu}>
+              <Link
+                href="/dashboard/analytics"
+                className={styles.reports__mobile_menu_item}
+                onClick={this.handleCloseMobileMenu}
+              >
+                Dashboard
+              </Link>
+              <Link
+                href="/invoices"
+                className={styles.reports__mobile_menu_item}
+                onClick={this.handleCloseMobileMenu}
+              >
+                Invoices
+              </Link>
+              <Link
+                href="/debtors"
+                className={styles.reports__mobile_menu_item}
+                onClick={this.handleCloseMobileMenu}
+              >
+                Debtors
+              </Link>
+              <Link
+                href="/reports"
+                className={`${styles.reports__mobile_menu_item} ${styles['reports__mobile_menu_item--active']}`}
+                onClick={this.handleCloseMobileMenu}
+              >
+                Reports
+              </Link>
+              <Link
+                href="/settings"
+                className={styles.reports__mobile_menu_item}
+                onClick={this.handleCloseMobileMenu}
+              >
+                Settings
+              </Link>
+              <Link
+                href="/admin"
+                className={styles.reports__mobile_menu_item}
+                onClick={this.handleCloseMobileMenu}
+              >
+                👤 Admin
+              </Link>
+              <button
+                onClick={() => {
+                  this.handleCloseMobileMenu();
+                  this.handleLogout();
+                }}
+                className={`${styles.reports__mobile_menu_item} ${styles['reports__mobile_menu_item--logout']}`}
+              >
+                Logout
+              </button>
+            </div>
+          )}
         </header>
 
         <main className={styles.reports__main}>
           <div className={styles.reports__container}>
+            <Breadcrumbs
+              items={[
+                { label: 'Home', href: '/' },
+                { label: 'Reports' },
+              ]}
+            />
             <div className={styles.reports__header_section}>
               <div>
                 <h1 className={styles.reports__title}>Reports</h1>

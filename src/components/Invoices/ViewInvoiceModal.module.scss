@@ -1,0 +1,175 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: $spacing-md;
+  animation: fadeIn 0.2s ease-out;
+
+  &__content {
+    background-color: $bg-primary;
+    border-radius: $radius-xl;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: $shadow-xl;
+    animation: slideUp 0.3s ease-out;
+
+    @include mobile {
+      max-width: 95%;
+      margin: $spacing-sm;
+      max-height: 95vh;
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $spacing-xl;
+    border-bottom: 1px solid $border-color;
+  }
+
+  &__title {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+    margin: 0;
+  }
+
+  &__close {
+    background: none;
+    border: none;
+    font-size: $font-size-3xl;
+    color: $text-secondary;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $radius-md;
+    @include transition(all);
+
+    &:hover {
+      background-color: $bg-secondary;
+      color: $text-primary;
+    }
+  }
+
+  &__body {
+    padding: $spacing-xl;
+  }
+
+  &__detail_row {
+    display: flex;
+    justify-content: space-between;
+    padding: $spacing-md 0;
+    border-bottom: 1px solid $border-color;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__detail_label {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $text-secondary;
+  }
+
+  &__detail_value {
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $text-primary;
+  }
+
+  &__status {
+    display: inline-block;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $radius-full;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    text-transform: capitalize;
+
+    &--approved {
+      background-color: rgba($success, 0.1);
+      color: $success;
+    }
+
+    &--processing {
+      background-color: rgba($primary, 0.1);
+      color: $primary;
+    }
+
+    &--pending {
+      background-color: rgba($warning, 0.1);
+      color: $warning;
+    }
+
+    &--paid {
+      background-color: rgba($primary, 0.1);
+      color: $primary;
+    }
+
+    &--rejected {
+      background-color: rgba($error, 0.1);
+      color: $error;
+    }
+
+    &--blocked {
+      background-color: rgba($error, 0.1);
+      color: $error;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: $spacing-md;
+    padding: $spacing-xl;
+    border-top: 1px solid $border-color;
+  }
+
+  &__button_close {
+    @include button-base;
+    padding: $spacing-md $spacing-xl;
+    font-size: $font-size-base;
+    background-color: $primary;
+    color: white;
+
+    &:hover {
+      background-color: $primary-dark;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

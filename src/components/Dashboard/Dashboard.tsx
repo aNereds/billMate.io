@@ -10,6 +10,7 @@ import { sampleDataService } from '@/utils/auth';
 import AddDebtorModal from './AddDebtorModal';
 import DeleteConfirmModal from './DeleteConfirmModal';
 import NotificationModal from './NotificationModal';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
 interface DashboardState {
   invoices: Invoice[];
@@ -23,6 +24,7 @@ interface DashboardState {
   deleteName: string | null;
   notificationTitle: string;
   notificationMessage: string;
+  isMobileMenuOpen: boolean;
   newInvoice: {
     company: string;
     amount: string;
@@ -45,6 +47,7 @@ class Dashboard extends Component<{}, DashboardState> {
       deleteName: null,
       notificationTitle: '',
       notificationMessage: '',
+      isMobileMenuOpen: false,
       newInvoice: {
         company: '',
         amount: '',
@@ -264,6 +267,26 @@ class Dashboard extends Component<{}, DashboardState> {
     });
   };
 
+  handleResize = () => {
+    if (window.innerWidth > 1024) {
+      this.setState({ isMobileMenuOpen: false });
+    }
+  };
+
+  handleToggleMobileMenu = () => {
+    this.setState((prevState) => ({
+      isMobileMenuOpen: !prevState.isMobileMenuOpen,
+    }));
+  };
+
+  handleCloseMobileMenu = () => {
+    this.setState({ isMobileMenuOpen: false });
+  };
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+
   handleLogout = () => {
     authService.logout();
     window.location.href = '/';
@@ -301,10 +324,10 @@ class Dashboard extends Component<{}, DashboardState> {
               >
                 Dashboard
               </Link>
-              <Link href="/error" className={styles.dashboard__nav_link}>
+              <Link href="/invoices" className={styles.dashboard__nav_link}>
                 Invoices
               </Link>
-              <Link href="/error" className={styles.dashboard__nav_link}>
+              <Link href="/debtors" className={styles.dashboard__nav_link}>
                 Debtors
               </Link>
               <Link href="/reports" className={styles.dashboard__nav_link}>
@@ -316,7 +339,7 @@ class Dashboard extends Component<{}, DashboardState> {
             </nav>
             <div className={styles.dashboard__user}>
               <span className={styles.dashboard__user_icon}>👤</span>
-              <Link href="/admin">Admin</Link>
+              <Link href="/admin" className={styles.dashboard__admin_link}>Admin</Link>
               <button
                 onClick={this.handleLogout}
                 className={styles.dashboard__logout_button}
@@ -324,11 +347,99 @@ class Dashboard extends Component<{}, DashboardState> {
                 Logout
               </button>
             </div>
+            <button
+              className={styles.dashboard__burger}
+              onClick={this.handleToggleMobileMenu}
+              aria-label="Toggle menu"
+            >
+              <span
+                className={`${styles.dashboard__burger_line} ${
+                  this.state.isMobileMenuOpen
+                    ? styles['dashboard__burger_line--open']
+                    : ''
+                }`}
+              ></span>
+              <span
+                className={`${styles.dashboard__burger_line} ${
+                  this.state.isMobileMenuOpen
+                    ? styles['dashboard__burger_line--open']
+                    : ''
+                }`}
+              ></span>
+              <span
+                className={`${styles.dashboard__burger_line} ${
+                  this.state.isMobileMenuOpen
+                    ? styles['dashboard__burger_line--open']
+                    : ''
+                }`}
+              ></span>
+            </button>
           </div>
+          {this.state.isMobileMenuOpen && (
+            <div className={styles.dashboard__mobile_menu}>
+              <Link
+                href="/dashboard/analytics"
+                className={`${styles.dashboard__mobile_menu_item} ${styles['dashboard__mobile_menu_item--active']}`}
+                onClick={this.handleCloseMobileMenu}
+              >
+                Dashboard
+              </Link>
+              <Link
+                href="/invoices"
+                className={styles.dashboard__mobile_menu_item}
+                onClick={this.handleCloseMobileMenu}
+              >
+                Invoices
+              </Link>
+              <Link
+                href="/debtors"
+                className={styles.dashboard__mobile_menu_item}
+                onClick={this.handleCloseMobileMenu}
+              >
+                Debtors
+              </Link>
+              <Link
+                href="/reports"
+                className={styles.dashboard__mobile_menu_item}
+                onClick={this.handleCloseMobileMenu}
+              >
+                Reports
+              </Link>
+              <Link
+                href="/settings"
+                className={styles.dashboard__mobile_menu_item}
+                onClick={this.handleCloseMobileMenu}
+              >
+                Settings
+              </Link>
+              <Link
+                href="/admin"
+                className={styles.dashboard__mobile_menu_item}
+                onClick={this.handleCloseMobileMenu}
+              >
+                👤 Admin
+              </Link>
+              <button
+                onClick={() => {
+                  this.handleCloseMobileMenu();
+                  this.handleLogout();
+                }}
+                className={`${styles.dashboard__mobile_menu_item} ${styles['dashboard__mobile_menu_item--logout']}`}
+              >
+                Logout
+              </button>
+            </div>
+          )}
         </header>
 
         <main className={styles.dashboard__main}>
           <div className={styles.dashboard__container}>
+            <Breadcrumbs
+              items={[
+                { label: 'Home', href: '/' },
+                { label: 'Dashboard' },
+              ]}
+            />
             <div className={styles.dashboard__grid}>
               <div className={styles.dashboard__card}>
                 <h2 className={styles.dashboard__card_title}>Unpaid Balance</h2>
@@ -551,9 +662,9 @@ class Dashboard extends Component<{}, DashboardState> {
                     </div>
                   </li>
                 </ul>
-              </div>
             </div>
           </div>
+        </div>
         </main>
 
         <AddDebtorModal

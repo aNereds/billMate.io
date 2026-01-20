@@ -7,6 +7,7 @@ import { authService } from '@/utils/auth';
 import { storageService, STORAGE_KEYS } from '@/utils/storage';
 import NotificationModal from './NotificationModal';
 import IntegrationModal from './IntegrationModal';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
 interface Notification {
   id: string;
@@ -31,6 +32,7 @@ interface SettingsState {
   showIntegrationModal: boolean;
   editingNotification: Notification | null;
   editingIntegration: Integration | null;
+  isMobileMenuOpen: boolean;
   securitySettings: {
     twoFactorAuth: boolean;
     sessionTimeout: number;
@@ -101,6 +103,7 @@ class Settings extends Component<{}, SettingsState> {
       showIntegrationModal: false,
       editingNotification: null,
       editingIntegration: null,
+      isMobileMenuOpen: false,
       securitySettings: {
         twoFactorAuth: false,
         sessionTimeout: 30,
@@ -116,7 +119,30 @@ class Settings extends Component<{}, SettingsState> {
     }
 
     this.loadData();
+
+    // Close mobile menu on window resize
+    window.addEventListener('resize', this.handleResize);
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+
+  handleResize = () => {
+    if (window.innerWidth > 1024) {
+      this.setState({ isMobileMenuOpen: false });
+    }
+  };
+
+  handleToggleMobileMenu = () => {
+    this.setState((prevState) => ({
+      isMobileMenuOpen: !prevState.isMobileMenuOpen,
+    }));
+  };
+
+  handleCloseMobileMenu = () => {
+    this.setState({ isMobileMenuOpen: false });
+  };
 
   loadData = () => {
     const storedNotifications = storageService.getItems<Notification>(
@@ -288,28 +314,28 @@ class Settings extends Component<{}, SettingsState> {
           <div className={styles.settings__header_container}>
             <div className={styles.settings__logo}>BillMate.io</div>
             <nav className={styles.settings__nav}>
-              <Link href="/dashboard/analytics" className={styles.settings__nav_link}>
+              <Link
+                href="/dashboard/analytics"
+                className={styles.settings__nav_link}
+              >
                 Dashboard
               </Link>
-              <Link href="/error" className={styles.settings__nav_link}>
+              <Link href="/invoices" className={styles.settings__nav_link}>
                 Invoices
               </Link>
-              <Link href="/error" className={styles.settings__nav_link}>
+              <Link href="/debtors" className={styles.settings__nav_link}>
                 Debtors
               </Link>
               <Link href="/reports" className={styles.settings__nav_link}>
                 Reports
               </Link>
-              <Link
-                href="/settings"
-                className={`${styles.settings__nav_link} ${styles['settings__nav_link--active']}`}
-              >
+              <Link href="/settings" className={styles.settings__nav_link}>
                 Settings
               </Link>
             </nav>
             <div className={styles.settings__user}>
               <span className={styles.settings__user_icon}>👤</span>
-              <Link href="/admin">Admin</Link>
+              <Link href="/admin" className={styles.settings__admin_link}>Admin</Link>
               <button
                 onClick={this.handleLogout}
                 className={styles.settings__logout_button}
@@ -317,11 +343,99 @@ class Settings extends Component<{}, SettingsState> {
                 Logout
               </button>
             </div>
+            <button
+              className={styles.settings__burger}
+              onClick={this.handleToggleMobileMenu}
+              aria-label="Toggle menu"
+            >
+              <span
+                className={`${styles.settings__burger_line} ${
+                  this.state.isMobileMenuOpen
+                    ? styles['settings__burger_line--open']
+                    : ''
+                }`}
+              ></span>
+              <span
+                className={`${styles.settings__burger_line} ${
+                  this.state.isMobileMenuOpen
+                    ? styles['settings__burger_line--open']
+                    : ''
+                }`}
+              ></span>
+              <span
+                className={`${styles.settings__burger_line} ${
+                  this.state.isMobileMenuOpen
+                    ? styles['settings__burger_line--open']
+                    : ''
+                }`}
+              ></span>
+            </button>
           </div>
+          {this.state.isMobileMenuOpen && (
+            <div className={styles.settings__mobile_menu}>
+              <Link
+                href="/dashboard/analytics"
+                className={styles.settings__mobile_menu_item}
+                onClick={this.handleCloseMobileMenu}
+              >
+                Dashboard
+              </Link>
+              <Link
+                href="/invoices"
+                className={styles.settings__mobile_menu_item}
+                onClick={this.handleCloseMobileMenu}
+              >
+                Invoices
+              </Link>
+              <Link
+                href="/debtors"
+                className={styles.settings__mobile_menu_item}
+                onClick={this.handleCloseMobileMenu}
+              >
+                Debtors
+              </Link>
+              <Link
+                href="/reports"
+                className={styles.settings__mobile_menu_item}
+                onClick={this.handleCloseMobileMenu}
+              >
+                Reports
+              </Link>
+              <Link
+                href="/settings"
+                className={`${styles.settings__mobile_menu_item} ${styles['settings__mobile_menu_item--active']}`}
+                onClick={this.handleCloseMobileMenu}
+              >
+                Settings
+              </Link>
+              <Link
+                href="/admin"
+                className={styles.settings__mobile_menu_item}
+                onClick={this.handleCloseMobileMenu}
+              >
+                👤 Admin
+              </Link>
+              <button
+                onClick={() => {
+                  this.handleCloseMobileMenu();
+                  this.handleLogout();
+                }}
+                className={`${styles.settings__mobile_menu_item} ${styles['settings__mobile_menu_item--logout']}`}
+              >
+                Logout
+              </button>
+            </div>
+          )}
         </header>
 
         <main className={styles.settings__main}>
           <div className={styles.settings__container}>
+            <Breadcrumbs
+              items={[
+                { label: 'Home', href: '/' },
+                { label: 'Settings' },
+              ]}
+            />
             <h1 className={styles.settings__title}>Settings</h1>
             <p className={styles.settings__subtitle}>
               Manage your account preferences and configurations

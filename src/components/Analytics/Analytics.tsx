@@ -19,6 +19,7 @@ import {
 } from 'recharts';
 import styles from './Analytics.module.scss';
 import { authService } from '@/utils/auth';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
 interface AnalyticsState {
   selectedPeriod: 'week' | 'month' | 'quarter' | 'year';
@@ -335,10 +336,10 @@ class Analytics extends Component<{}, AnalyticsState> {
               >
                 Dashboard
               </Link>
-              <Link href="/error" className={styles.analytics__nav_link}>
+              <Link href="/invoices" className={styles.analytics__nav_link}>
                 Invoices
               </Link>
-              <Link href="/error" className={styles.analytics__nav_link}>
+              <Link href="/debtors" className={styles.analytics__nav_link}>
                 Debtors
               </Link>
               <Link href="/reports" className={styles.analytics__nav_link}>
@@ -350,7 +351,7 @@ class Analytics extends Component<{}, AnalyticsState> {
             </nav>
             <div className={styles.analytics__user}>
               <span className={styles.analytics__user_icon}>👤</span>
-              <Link href="/admin">Admin</Link>
+              <Link href="/admin" className={styles.analytics__admin_link}>Admin</Link>
               <button
                 onClick={this.handleLogout}
                 className={styles.analytics__logout_button}
@@ -396,14 +397,14 @@ class Analytics extends Component<{}, AnalyticsState> {
                 Dashboard
               </Link>
               <Link
-                href="/error"
+                href="/invoices"
                 className={styles.analytics__mobile_menu_item}
                 onClick={this.handleCloseMobileMenu}
               >
                 Invoices
               </Link>
               <Link
-                href="/error"
+                href="/debtors"
                 className={styles.analytics__mobile_menu_item}
                 onClick={this.handleCloseMobileMenu}
               >
@@ -445,6 +446,13 @@ class Analytics extends Component<{}, AnalyticsState> {
 
         <main className={styles.analytics__main}>
           <div className={styles.analytics__container}>
+            <Breadcrumbs
+              items={[
+                { label: 'Home', href: '/' },
+                { label: 'Dashboard', href: '/dashboard/analytics' },
+                { label: 'Analytics' },
+              ]}
+            />
             <div className={styles.analytics__header_section}>
               <h1 className={styles.analytics__title}>Analytics Dashboard</h1>
               <p className={styles.analytics__subtitle}>
