@@ -24,6 +24,12 @@
     overflow-y: auto;
     box-shadow: $shadow-xl;
     animation: slideUp 0.3s ease-out;
+
+    @include mobile {
+      max-width: 100%;
+      margin: $spacing-sm;
+      max-height: 95vh;
+    }
   }
 
   &__header {

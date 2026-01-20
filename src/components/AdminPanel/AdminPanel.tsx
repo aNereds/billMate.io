@@ -47,6 +47,7 @@ interface AdminPanelState {
   deleteType: 'client' | 'invoice' | 'payout' | null;
   deleteId: string | null;
   deleteName: string | null;
+  isMobileMenuOpen: boolean;
 }
 
 class AdminPanel extends Component<{}, AdminPanelState> {
@@ -74,6 +75,7 @@ class AdminPanel extends Component<{}, AdminPanelState> {
       deleteType: null,
       deleteId: null,
       deleteName: null,
+      isMobileMenuOpen: false,
     };
   }
 
@@ -86,6 +88,9 @@ class AdminPanel extends Component<{}, AdminPanelState> {
 
     // Load data
     this.loadData();
+
+    // Close mobile menu on window resize
+    window.addEventListener('resize', this.handleResize);
 
     // Mark sample data
     mockClients.forEach((client) => {
@@ -121,8 +126,28 @@ class AdminPanel extends Component<{}, AdminPanelState> {
   };
 
   handleTabChange = (tab: AdminPanelState['activeTab']) => {
-    this.setState({ activeTab: tab });
+    this.setState({ activeTab: tab, isMobileMenuOpen: false });
   };
+
+  handleToggleMobileMenu = () => {
+    this.setState((prevState) => ({
+      isMobileMenuOpen: !prevState.isMobileMenuOpen,
+    }));
+  };
+
+  handleCloseMobileMenu = () => {
+    this.setState({ isMobileMenuOpen: false });
+  };
+
+  handleResize = () => {
+    if (window.innerWidth > 1024) {
+      this.setState({ isMobileMenuOpen: false });
+    }
+  };
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
 
   handleViewInvoice = (invoiceId: string) => {
     const invoice = this.state.invoices.find((inv) => inv.invoiceId === invoiceId);
@@ -601,7 +626,84 @@ class AdminPanel extends Component<{}, AdminPanelState> {
                 Logout
               </button>
             </div>
+            <button
+              className={styles.admin__burger}
+              onClick={this.handleToggleMobileMenu}
+              aria-label="Toggle menu"
+            >
+              <span
+                className={`${styles.admin__burger_line} ${
+                  this.state.isMobileMenuOpen
+                    ? styles['admin__burger_line--open']
+                    : ''
+                }`}
+              ></span>
+              <span
+                className={`${styles.admin__burger_line} ${
+                  this.state.isMobileMenuOpen
+                    ? styles['admin__burger_line--open']
+                    : ''
+                }`}
+              ></span>
+              <span
+                className={`${styles.admin__burger_line} ${
+                  this.state.isMobileMenuOpen
+                    ? styles['admin__burger_line--open']
+                    : ''
+                }`}
+              ></span>
+            </button>
           </div>
+          {this.state.isMobileMenuOpen && (
+            <div className={styles.admin__mobile_menu}>
+              <button
+                className={`${styles.admin__mobile_menu_item} ${
+                  activeTab === 'clients'
+                    ? styles['admin__mobile_menu_item--active']
+                    : ''
+                }`}
+                onClick={() => this.handleTabChange('clients')}
+              >
+                Clients
+              </button>
+              <button
+                className={`${styles.admin__mobile_menu_item} ${
+                  activeTab === 'invoices'
+                    ? styles['admin__mobile_menu_item--active']
+                    : ''
+                }`}
+                onClick={() => this.handleTabChange('invoices')}
+              >
+                Invoices
+              </button>
+              <button
+                className={`${styles.admin__mobile_menu_item} ${
+                  activeTab === 'payout'
+                    ? styles['admin__mobile_menu_item--active']
+                    : ''
+                }`}
+                onClick={() => this.handleTabChange('payout')}
+              >
+                $ Payout
+              </button>
+              <Link
+                href="/dashboard"
+                className={styles.admin__mobile_menu_item}
+                onClick={this.handleCloseMobileMenu}
+              >
+                Exit Admin →
+              </Link>
+              <button
+                onClick={() => {
+                  this.handleCloseMobileMenu();
+                  this.handleLogout();
+                }}
+                className={`${styles.admin__mobile_menu_item} ${styles['admin__mobile_menu_item--logout']}`}
+              >
+                Logout
+              </button>
+            </div>
+          )}
         </header>
 
         <main className={styles.admin__main}>

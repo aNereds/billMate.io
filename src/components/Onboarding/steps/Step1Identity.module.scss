@@ -77,6 +77,14 @@
     padding: $spacing-md;
     font-size: $font-size-base;
     width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @include mobile {
+      padding: $spacing-sm $spacing-md;
+      font-size: $font-size-sm;
+    }
 
     &:hover {
       background-color: $primary-dark;
@@ -91,6 +99,14 @@
     padding: $spacing-md;
     font-size: $font-size-base;
     width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @include mobile {
+      padding: $spacing-sm $spacing-md;
+      font-size: $font-size-sm;
+    }
 
     &:hover {
       background-color: rgba($primary, 0.1);

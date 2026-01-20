@@ -14,6 +14,11 @@
       @include container;
       @include flex-between;
       gap: $spacing-xl;
+
+      @include mobile {
+        flex-wrap: wrap;
+        gap: $spacing-sm;
+      }
     }
   }
 
@@ -57,6 +62,10 @@
     gap: $spacing-sm;
     font-size: $font-size-base;
     color: $text-primary;
+
+    @include mobile {
+      font-size: $font-size-sm;
+    }
   }
 
   &__user_icon {
@@ -143,12 +152,23 @@
 
   &__table_wrapper {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+
+    @include mobile {
+      margin: 0 -$spacing-md;
+      padding: 0 $spacing-md;
+    }
   }
 
   &__table {
     width: 100%;
     border-collapse: collapse;
     font-size: $font-size-sm;
+    min-width: 600px;
+
+    @include mobile {
+      font-size: $font-size-xs;
+    }
 
     th {
       text-align: left;

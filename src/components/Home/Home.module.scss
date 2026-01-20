@@ -53,6 +53,10 @@
     display: flex;
     gap: $spacing-md;
     align-items: center;
+
+    @include mobile {
+      gap: $spacing-xs;
+    }
   }
 
   &__button_primary,
@@ -62,6 +66,12 @@
     font-size: $font-size-base;
     text-decoration: none;
     display: inline-block;
+    white-space: nowrap;
+
+    @include mobile {
+      padding: $spacing-xs $spacing-sm;
+      font-size: $font-size-sm;
+    }
   }
 
   &__button_primary {
@@ -90,6 +100,12 @@
     border: 1px solid $border-color;
     padding: $spacing-sm $spacing-lg;
     font-size: $font-size-base;
+    white-space: nowrap;
+
+    @include mobile {
+      padding: $spacing-xs $spacing-sm;
+      font-size: $font-size-sm;
+    }
 
     &:hover {
       background-color: $bg-secondary;
@@ -149,6 +165,12 @@
     @include button-base;
     padding: $spacing-md $spacing-2xl;
     font-size: $font-size-lg;
+    white-space: nowrap;
+
+    @include mobile {
+      padding: $spacing-sm $spacing-md;
+      font-size: $font-size-base;
+    }
   }
 
   &__button_primary_large {
