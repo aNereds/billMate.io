@@ -1,0 +1,224 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.analytics {
+  min-height: 100vh;
+  background-color: $bg-secondary;
+
+  &__header {
+    background-color: $bg-primary;
+    border-bottom: 1px solid $border-color;
+    padding: $spacing-md 0;
+
+    &_container {
+      @include container;
+      @include flex-between;
+      gap: $spacing-xl;
+    }
+  }
+
+  &__logo {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $primary;
+  }
+
+  &__nav {
+    display: flex;
+    gap: $spacing-xl;
+    flex: 1;
+    justify-content: center;
+
+    @include mobile {
+      display: none;
+    }
+  }
+
+  &__nav_link {
+    font-size: $font-size-base;
+    color: $text-secondary;
+    text-decoration: none;
+    @include transition(color);
+
+    &:hover {
+      color: $primary;
+    }
+
+    &_active {
+      @extend .analytics__nav_link;
+      color: $primary;
+      font-weight: $font-weight-semibold;
+    }
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    font-size: $font-size-base;
+    color: $text-primary;
+  }
+
+  &__user_icon {
+    font-size: $font-size-lg;
+  }
+
+  &__logout_button {
+    @include button-base;
+    background-color: transparent;
+    color: $text-secondary;
+    padding: $spacing-xs $spacing-md;
+    font-size: $font-size-sm;
+    margin-left: $spacing-md;
+
+    &:hover {
+      color: $error;
+    }
+  }
+
+  &__main {
+    padding: $spacing-2xl 0;
+  }
+
+  &__container {
+    @include container;
+  }
+
+  &__header_section {
+    margin-bottom: $spacing-2xl;
+  }
+
+  &__title {
+    font-size: $font-size-4xl;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+    margin-bottom: $spacing-sm;
+  }
+
+  &__subtitle {
+    font-size: $font-size-lg;
+    color: $text-secondary;
+  }
+
+  &__filters {
+    display: flex;
+    gap: $spacing-2xl;
+    margin-bottom: $spacing-2xl;
+    flex-wrap: wrap;
+    padding: $spacing-lg;
+    background-color: $bg-primary;
+    border-radius: $radius-lg;
+    border: 1px solid $border-color;
+  }
+
+  &__filter_group {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+  }
+
+  &__filter_label {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $text-primary;
+    white-space: nowrap;
+  }
+
+  &__filter_buttons {
+    display: flex;
+    gap: $spacing-xs;
+  }
+
+  &__filter_button {
+    @include button-base;
+    padding: $spacing-xs $spacing-md;
+    font-size: $font-size-sm;
+    background-color: $bg-secondary;
+    color: $text-secondary;
+    border: 1px solid $border-color;
+    border-radius: $radius-md;
+
+    &:hover {
+      background-color: $bg-primary;
+      color: $text-primary;
+    }
+
+    &_active {
+      background-color: $primary;
+      color: white;
+      border-color: $primary;
+
+      &:hover {
+        background-color: $primary-dark;
+      }
+    }
+  }
+
+  &__summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: $spacing-lg;
+    margin-bottom: $spacing-2xl;
+  }
+
+  &__summary_card {
+    background-color: $bg-primary;
+    border-radius: $radius-xl;
+    padding: $spacing-xl;
+    box-shadow: $shadow-sm;
+    border: 1px solid $border-color;
+  }
+
+  &__summary_title {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $text-secondary;
+    margin-bottom: $spacing-sm;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  &__summary_amount {
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+    margin-bottom: $spacing-xs;
+  }
+
+  &__summary_change {
+    font-size: $font-size-sm;
+    color: $text-secondary;
+    font-weight: $font-weight-medium;
+  }
+
+  &__summary_change_positive {
+    font-size: $font-size-sm;
+    color: $success;
+    font-weight: $font-weight-medium;
+  }
+
+  &__charts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: $spacing-xl;
+
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__chart_card {
+    background-color: $bg-primary;
+    border-radius: $radius-xl;
+    padding: $spacing-xl;
+    box-shadow: $shadow-sm;
+    border: 1px solid $border-color;
+  }
+
+  &__chart_title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+    margin-bottom: $spacing-lg;
+  }
+}

@@ -1,0 +1,217 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+.step1 {
+  text-align: center;
+  position: relative;
+
+  &__notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: $warning;
+    color: white;
+    padding: $spacing-md $spacing-lg;
+    border-radius: $radius-md;
+    box-shadow: $shadow-lg;
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    z-index: 1000;
+    animation: slideInRight 0.3s ease-out;
+    max-width: 400px;
+
+    @include mobile {
+      top: 10px;
+      right: 10px;
+      left: 10px;
+      max-width: none;
+    }
+  }
+
+  &__notification_icon {
+    font-size: $font-size-lg;
+    flex-shrink: 0;
+  }
+
+  &__notification_text {
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    line-height: 1.4;
+  }
+
+  &__icon {
+    font-size: 64px;
+    margin-bottom: $spacing-lg;
+  }
+
+  &__title {
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+    margin-bottom: $spacing-md;
+  }
+
+  &__description {
+    font-size: $font-size-base;
+    color: $text-secondary;
+    margin-bottom: $spacing-xl;
+  }
+
+  &__auth_buttons {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+    margin-bottom: $spacing-xl;
+    @include transition(all);
+
+    &--warning {
+      animation: pulseWarning 2s ease-in-out infinite;
+    }
+  }
+
+  &__auth_button_primary {
+    @include button-base;
+    background-color: $primary;
+    color: white;
+    padding: $spacing-md;
+    font-size: $font-size-base;
+    width: 100%;
+
+    &:hover {
+      background-color: $primary-dark;
+    }
+  }
+
+  &__auth_button_secondary {
+    @include button-base;
+    background-color: transparent;
+    color: $primary;
+    border: 2px solid $primary;
+    padding: $spacing-md;
+    font-size: $font-size-base;
+    width: 100%;
+
+    &:hover {
+      background-color: rgba($primary, 0.1);
+    }
+  }
+
+  &__error_message {
+    background-color: rgba($warning, 0.1);
+    color: $warning;
+    padding: $spacing-md;
+    border-radius: $radius-md;
+    margin-bottom: $spacing-lg;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    border: 1px solid $warning;
+    animation: pulseWarning 2s ease-in-out infinite;
+  }
+
+  &__verified {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-sm;
+    padding: $spacing-md;
+    background-color: rgba($success, 0.1);
+    border-radius: $radius-md;
+    margin-bottom: $spacing-xl;
+  }
+
+  &__verified_icon {
+    color: $success;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-lg;
+  }
+
+  &__verified_text {
+    color: $success;
+    font-weight: $font-weight-medium;
+  }
+
+  &__form {
+    text-align: left;
+    margin-top: $spacing-xl;
+  }
+
+  &__form_group {
+    margin-bottom: $spacing-lg;
+  }
+
+  &__form_label {
+    display: block;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $text-primary;
+    margin-bottom: $spacing-xs;
+  }
+
+  &__form_input {
+    width: 100%;
+    padding: $spacing-md;
+    font-size: $font-size-base;
+    border: 2px solid $border-color;
+    border-radius: $radius-md;
+    @include transition(all);
+
+    &:focus {
+      outline: none;
+      border-color: $primary;
+      box-shadow: 0 0 0 3px rgba($primary, 0.1);
+    }
+
+    &--error {
+      border-color: $error;
+      background-color: rgba($error, 0.05);
+      animation: pulseError 2s ease-in-out infinite;
+
+      &:focus {
+        border-color: $error;
+        box-shadow: 0 0 0 3px rgba($error, 0.1);
+      }
+    }
+
+    &::placeholder {
+      color: $text-light;
+    }
+  }
+
+  &__form_error {
+    display: block;
+    color: $error;
+    font-size: $font-size-xs;
+    margin-top: $spacing-xs;
+    font-weight: $font-weight-medium;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulseWarning {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba($warning, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba($warning, 0);
+  }
+}
+
+@keyframes pulseError {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba($error, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba($error, 0);
+  }
+}

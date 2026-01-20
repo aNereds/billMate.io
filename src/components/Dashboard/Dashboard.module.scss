@@ -1,0 +1,439 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.dashboard {
+  min-height: 100vh;
+  background-color: $bg-secondary;
+
+  &__header {
+    background-color: $bg-primary;
+    border-bottom: 1px solid $border-color;
+    padding: $spacing-md 0;
+
+    &_container {
+      @include container;
+      @include flex-between;
+      gap: $spacing-xl;
+    }
+  }
+
+  &__logo {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $primary;
+  }
+
+  &__nav {
+    display: flex;
+    gap: $spacing-xl;
+    flex: 1;
+    justify-content: center;
+
+    @include mobile {
+      display: none;
+    }
+  }
+
+  &__nav_link {
+    font-size: $font-size-base;
+    color: $text-secondary;
+    text-decoration: none;
+    @include transition(color);
+
+    &:hover {
+      color: $primary;
+    }
+
+    &_active {
+      @extend .dashboard__nav_link;
+      color: $primary;
+      font-weight: $font-weight-semibold;
+    }
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    font-size: $font-size-base;
+    color: $text-primary;
+  }
+
+  &__user_icon {
+    font-size: $font-size-lg;
+  }
+
+  &__main {
+    padding: $spacing-2xl 0;
+  }
+
+  &__container {
+    @include container;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-xl;
+
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__card {
+    background-color: $bg-primary;
+    border-radius: $radius-xl;
+    padding: $spacing-xl;
+    box-shadow: $shadow-sm;
+    border: 1px solid $border-color;
+    @include transition(all);
+
+    &:hover {
+      box-shadow: $shadow-md;
+    }
+
+    &:first-child {
+      grid-column: 1 / -1;
+    }
+  }
+
+  &__card_header {
+    @include flex-between;
+    margin-bottom: $spacing-lg;
+  }
+
+  &__card_title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+    margin-bottom: $spacing-md;
+  }
+
+  &__balance_amount {
+    font-size: $font-size-5xl;
+    font-weight: $font-weight-bold;
+    color: $error;
+    margin-bottom: $spacing-sm;
+  }
+
+  &__balance_status {
+    color: $text-secondary;
+    font-size: $font-size-base;
+  }
+
+  &__add_button,
+  &__view_button,
+  &__new_button {
+    @include button-base;
+    background-color: $primary;
+    color: white;
+    padding: $spacing-sm $spacing-lg;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    border-radius: $radius-md;
+    @include transition(all);
+
+    &:hover {
+      background-color: $primary-dark;
+      transform: translateY(-1px);
+      box-shadow: $shadow-md;
+    }
+  }
+
+  &__table_wrapper {
+    overflow-x: auto;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: $font-size-sm;
+
+    th {
+      text-align: left;
+      padding: $spacing-md $spacing-lg;
+      font-weight: $font-weight-semibold;
+      color: $text-secondary;
+      border-bottom: 1px solid $border-color;
+      background-color: $bg-secondary;
+      font-size: $font-size-xs;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      padding: $spacing-md $spacing-lg;
+      border-bottom: 1px solid $border-color;
+      color: $text-primary;
+      vertical-align: middle;
+    }
+
+    tbody tr {
+      @include transition(background-color);
+
+      &:hover {
+        background-color: $bg-secondary;
+      }
+
+      &:last-child td {
+        border-bottom: none;
+      }
+    }
+  }
+
+  &__status {
+    display: inline-block;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $radius-full;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    text-transform: capitalize;
+    white-space: nowrap;
+
+    &_approved {
+      background-color: rgba($success, 0.1);
+      color: $success;
+    }
+
+    &_processing {
+      background-color: rgba($primary, 0.1);
+      color: $primary;
+    }
+
+    &_pending {
+      background-color: rgba($warning, 0.1);
+      color: $warning;
+    }
+
+    &_paid {
+      background-color: rgba($primary, 0.1);
+      color: $primary;
+    }
+
+    &_rejected {
+      background-color: rgba($error, 0.1);
+      color: $error;
+    }
+
+    &_blocked {
+      background-color: rgba($error, 0.1);
+      color: $error;
+    }
+  }
+
+  &__status_blocked {
+    color: $error;
+    font-weight: $font-weight-medium;
+  }
+
+  &__view_all {
+    display: inline-block;
+    margin-top: $spacing-md;
+    color: $primary;
+    text-decoration: none;
+    font-size: $font-size-sm;
+    @include transition(color);
+
+    &:hover {
+      color: $primary-dark;
+    }
+  }
+
+  &__action_button {
+    @include button-base;
+    background-color: $primary;
+    color: white;
+    padding: $spacing-xs $spacing-sm;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    border-radius: $radius-md;
+    white-space: nowrap;
+    @include transition(all);
+
+    &:hover {
+      background-color: $primary-dark;
+      transform: translateY(-1px);
+      box-shadow: $shadow-sm;
+    }
+  }
+
+  &__conversations {
+    list-style: none;
+  }
+
+  &__conversation {
+    @include flex-between;
+    padding: $spacing-md;
+    border-bottom: 1px solid $border-color;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__conversation_content {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+  }
+
+  &__conversation_title {
+    font-weight: $font-weight-medium;
+    color: $text-primary;
+  }
+
+  &__conversation_date {
+    font-size: $font-size-sm;
+    color: $text-secondary;
+  }
+
+  &__conversation_new {
+    @include button-base;
+    background-color: $primary;
+    color: white;
+    padding: $spacing-xs $spacing-md;
+    font-size: $font-size-xs;
+  }
+
+  &__logout_button {
+    @include button-base;
+    background-color: transparent;
+    color: $text-secondary;
+    padding: $spacing-xs $spacing-md;
+    font-size: $font-size-sm;
+    margin-left: $spacing-md;
+
+    &:hover {
+      color: $error;
+    }
+  }
+
+  &__add_form {
+    background-color: $bg-secondary;
+    padding: $spacing-lg;
+    border-radius: $radius-md;
+    margin-bottom: $spacing-lg;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+  }
+
+  &__form_input {
+    padding: $spacing-md;
+    font-size: $font-size-base;
+    border: 2px solid $border-color;
+    border-radius: $radius-md;
+    background-color: $bg-primary;
+    @include transition(all);
+    font-family: inherit;
+
+    &:focus {
+      outline: none;
+      border-color: $primary;
+      box-shadow: 0 0 0 3px rgba($primary, 0.1);
+    }
+
+    &::placeholder {
+      color: $text-light;
+    }
+  }
+
+  &__form_actions {
+    display: flex;
+    gap: $spacing-md;
+  }
+
+  &__button_save {
+    @include button-base;
+    background-color: $success;
+    color: white;
+    padding: $spacing-sm $spacing-lg;
+    font-weight: $font-weight-medium;
+    border-radius: $radius-md;
+    @include transition(all);
+
+    &:hover {
+      background-color: #0d9668;
+      transform: translateY(-1px);
+      box-shadow: $shadow-md;
+    }
+  }
+
+  &__button_cancel {
+    @include button-base;
+    background-color: $text-secondary;
+    color: white;
+    padding: $spacing-sm $spacing-lg;
+    font-weight: $font-weight-medium;
+    border-radius: $radius-md;
+    @include transition(all);
+
+    &:hover {
+      background-color: #4b5563;
+      transform: translateY(-1px);
+      box-shadow: $shadow-md;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: $spacing-xs;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  &__approve_button {
+    @include button-base;
+    background-color: $success;
+    color: white;
+    padding: $spacing-xs $spacing-sm;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    border-radius: $radius-md;
+    white-space: nowrap;
+    @include transition(all);
+
+    &:hover {
+      background-color: #0d9668;
+      transform: translateY(-1px);
+      box-shadow: $shadow-sm;
+    }
+  }
+
+  &__block_button {
+    @include button-base;
+    background-color: $error;
+    color: white;
+    padding: $spacing-xs $spacing-sm;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    border-radius: $radius-md;
+    white-space: nowrap;
+    @include transition(all);
+
+    &:hover {
+      background-color: #dc2626;
+      transform: translateY(-1px);
+      box-shadow: $shadow-sm;
+    }
+  }
+
+  &__delete_button {
+    @include button-base;
+    background-color: $error;
+    color: white;
+    padding: $spacing-xs $spacing-sm;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    border-radius: $radius-md;
+    white-space: nowrap;
+    @include transition(all);
+
+    &:hover {
+      background-color: #dc2626;
+      transform: translateY(-1px);
+      box-shadow: $shadow-sm;
+    }
+  }
+}

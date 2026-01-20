@@ -1,0 +1,85 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.error {
+  min-height: 100vh;
+  background-color: $bg-secondary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xl;
+
+  &__container {
+    @include container;
+    max-width: 600px;
+  }
+
+  &__content {
+    background-color: $bg-primary;
+    border-radius: $radius-xl;
+    padding: $spacing-3xl;
+    box-shadow: $shadow-lg;
+    text-align: center;
+    border: 1px solid $border-color;
+  }
+
+  &__title {
+    font-size: $font-size-5xl;
+    font-weight: $font-weight-bold;
+    color: $error;
+    margin-bottom: $spacing-md;
+  }
+
+  &__subtitle {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+    margin-bottom: $spacing-md;
+  }
+
+  &__message {
+    font-size: $font-size-lg;
+    color: $text-secondary;
+    margin-bottom: $spacing-2xl;
+    line-height: 1.6;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $spacing-md;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  &__button {
+    @include button-base;
+    background-color: $primary;
+    color: white;
+    padding: $spacing-md $spacing-xl;
+    font-size: $font-size-base;
+    text-decoration: none;
+    border-radius: $radius-md;
+
+    &:hover {
+      background-color: $primary-dark;
+      transform: translateY(-1px);
+      box-shadow: $shadow-md;
+    }
+  }
+
+  &__button_secondary {
+    @include button-base;
+    background-color: transparent;
+    color: $text-secondary;
+    padding: $spacing-md $spacing-xl;
+    font-size: $font-size-base;
+    text-decoration: none;
+    border: 1px solid $border-color;
+    border-radius: $radius-md;
+
+    &:hover {
+      background-color: $bg-secondary;
+      color: $text-primary;
+    }
+  }
+}

@@ -1,0 +1,297 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.home {
+  min-height: 100vh;
+  background-color: $bg-primary;
+
+  &__header {
+    background-color: $bg-primary;
+    border-bottom: 1px solid $border-color;
+    padding: $spacing-md 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.95);
+  }
+
+  &__header_container {
+    @include container;
+    @include flex-between;
+  }
+
+  &__logo {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $primary;
+  }
+
+  &__nav {
+    display: flex;
+    gap: $spacing-xl;
+    flex: 1;
+    justify-content: center;
+
+    @include mobile {
+      display: none;
+    }
+  }
+
+  &__nav_link {
+    font-size: $font-size-base;
+    color: $text-secondary;
+    text-decoration: none;
+    @include transition(color);
+
+    &:hover {
+      color: $primary;
+    }
+  }
+
+  &__auth {
+    display: flex;
+    gap: $spacing-md;
+    align-items: center;
+  }
+
+  &__button_primary,
+  &__button_secondary {
+    @include button-base;
+    padding: $spacing-sm $spacing-lg;
+    font-size: $font-size-base;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  &__button_primary {
+    background-color: $primary;
+    color: white;
+
+    &:hover {
+      background-color: $primary-dark;
+    }
+  }
+
+  &__button_secondary {
+    background-color: transparent;
+    color: $primary;
+    border: 2px solid $primary;
+
+    &:hover {
+      background-color: rgba($primary, 0.1);
+    }
+  }
+
+  &__button_logout {
+    @include button-base;
+    background-color: transparent;
+    color: $text-secondary;
+    border: 1px solid $border-color;
+    padding: $spacing-sm $spacing-lg;
+    font-size: $font-size-base;
+
+    &:hover {
+      background-color: $bg-secondary;
+      color: $error;
+      border-color: $error;
+    }
+  }
+
+  &__main {
+    // Main content
+  }
+
+  &__hero {
+    padding: $spacing-3xl 0;
+    background: linear-gradient(135deg, $primary 0%, $secondary 100%);
+    color: white;
+    text-align: center;
+  }
+
+  &__hero_container {
+    @include container;
+  }
+
+  &__hero_title {
+    font-size: $font-size-5xl;
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-lg;
+    color: white;
+
+    @include mobile {
+      font-size: $font-size-3xl;
+    }
+  }
+
+  &__hero_subtitle {
+    font-size: $font-size-xl;
+    margin-bottom: $spacing-2xl;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.95;
+
+    @include mobile {
+      font-size: $font-size-lg;
+    }
+  }
+
+  &__hero_actions {
+    display: flex;
+    gap: $spacing-md;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  &__button_primary_large,
+  &__button_secondary_large {
+    @include button-base;
+    padding: $spacing-md $spacing-2xl;
+    font-size: $font-size-lg;
+  }
+
+  &__button_primary_large {
+    background-color: white;
+    color: $primary;
+
+    &:hover {
+      background-color: $bg-secondary;
+    }
+  }
+
+  &__button_secondary_large {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  &__container {
+    @include container;
+  }
+
+  &__features,
+  &__services,
+  &__contact {
+    padding: $spacing-3xl 0;
+  }
+
+  &__services {
+    background-color: $bg-secondary;
+  }
+
+  &__section_title {
+    font-size: $font-size-4xl;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+    text-align: center;
+    margin-bottom: $spacing-2xl;
+
+    @include mobile {
+      font-size: $font-size-3xl;
+    }
+  }
+
+  &__features_grid,
+  &__services_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: $spacing-xl;
+  }
+
+  &__feature_card,
+  &__service_card {
+    background-color: $bg-primary;
+    padding: $spacing-xl;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-md;
+    text-align: center;
+    @include transition(transform);
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: $shadow-lg;
+    }
+  }
+
+  &__feature_icon {
+    font-size: 48px;
+    margin-bottom: $spacing-md;
+  }
+
+  &__feature_title,
+  &__service_title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+    margin-bottom: $spacing-sm;
+  }
+
+  &__feature_description,
+  &__service_description {
+    font-size: $font-size-base;
+    color: $text-secondary;
+    line-height: 1.6;
+  }
+
+  &__contact_info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: $spacing-xl;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  &__contact_item {
+    display: flex;
+    gap: $spacing-md;
+    align-items: flex-start;
+    background-color: $bg-primary;
+    padding: $spacing-xl;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-sm;
+  }
+
+  &__contact_icon {
+    font-size: 32px;
+  }
+
+  &__contact_item h3 {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+    margin-bottom: $spacing-xs;
+  }
+
+  &__contact_item p {
+    font-size: $font-size-base;
+    color: $text-secondary;
+    margin: 0;
+  }
+
+  &__contact_link {
+    color: $text-secondary;
+    text-decoration: none;
+    @include transition(all);
+
+    &:hover {
+      color: $primary;
+      text-decoration: underline;
+    }
+
+    &:active {
+      color: $primary-dark;
+    }
+  }
+
+  &__footer {
+    background-color: $bg-dark;
+    color: white;
+    padding: $spacing-xl 0;
+    text-align: center;
+  }
+}

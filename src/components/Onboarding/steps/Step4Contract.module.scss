@@ -1,0 +1,190 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+.step4 {
+  position: relative;
+
+  &__notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: $warning;
+    color: white;
+    padding: $spacing-md $spacing-lg;
+    border-radius: $radius-md;
+    box-shadow: $shadow-lg;
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    z-index: 1000;
+    animation: slideInRight 0.3s ease-out;
+    max-width: 400px;
+
+    @include mobile {
+      top: 10px;
+      right: 10px;
+      left: 10px;
+      max-width: none;
+    }
+  }
+
+  &__notification_icon {
+    font-size: $font-size-lg;
+    flex-shrink: 0;
+  }
+
+  &__notification_text {
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    line-height: 1.4;
+  }
+
+  &__status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-sm;
+    padding: $spacing-md;
+    background-color: rgba($success, 0.1);
+    border-radius: $radius-md;
+    margin-bottom: $spacing-xl;
+  }
+
+  &__status_icon {
+    color: $success;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-lg;
+  }
+
+  &__status_text {
+    color: $success;
+    font-weight: $font-weight-medium;
+  }
+
+  &__sections {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+  }
+
+  &__section {
+    border: 1px solid $border-color;
+    border-radius: $radius-md;
+    overflow: hidden;
+    @include transition(all);
+
+    &--warning {
+      border-color: $warning;
+      background-color: rgba($warning, 0.05);
+      animation: pulseWarning 2s ease-in-out infinite;
+    }
+  }
+
+  &__section_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $spacing-md $spacing-lg;
+    background-color: $bg-secondary;
+    cursor: pointer;
+    @include transition(background-color);
+
+    &:hover {
+      background-color: darken($bg-secondary, 2%);
+    }
+  }
+
+  &__section_title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+    margin: 0;
+  }
+
+  &__section_toggle {
+    color: $text-secondary;
+    font-size: $font-size-sm;
+  }
+
+  &__section_content {
+    padding: $spacing-lg;
+    background-color: $bg-primary;
+  }
+
+  &__section_item {
+    margin-bottom: $spacing-lg;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
+    strong {
+      display: block;
+      margin-bottom: $spacing-xs;
+      color: $text-primary;
+      font-size: $font-size-base;
+    }
+
+    p {
+      color: $text-secondary;
+      line-height: 1.6;
+      font-size: $font-size-sm;
+      margin: 0;
+    }
+  }
+
+  &__checkbox {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    margin-top: $spacing-lg;
+    padding: $spacing-md;
+    border-radius: $radius-md;
+    @include transition(all);
+
+    &--warning {
+      background-color: rgba($warning, 0.1);
+      border: 1px solid $warning;
+      animation: pulseWarning 2s ease-in-out infinite;
+    }
+  }
+
+  &__checkbox_input {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    flex-shrink: 0;
+    accent-color: $primary;
+
+    &:checked {
+      accent-color: $primary;
+    }
+  }
+
+  &__checkbox_label {
+    font-size: $font-size-base;
+    color: $text-primary;
+    cursor: pointer;
+    user-select: none;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulseWarning {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba($warning, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba($warning, 0);
+  }
+}

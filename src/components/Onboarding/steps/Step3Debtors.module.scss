@@ -1,0 +1,157 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+.step3 {
+  &__title {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+    margin-bottom: $spacing-sm;
+  }
+
+  &__description {
+    font-size: $font-size-base;
+    color: $text-secondary;
+    margin-bottom: $spacing-2xl;
+    line-height: 1.5;
+  }
+
+  &__debtor {
+    margin-bottom: $spacing-lg;
+  }
+
+  &__debtor_row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr 1fr auto;
+    gap: $spacing-md;
+    align-items: flex-end;
+
+    @include mobile {
+      grid-template-columns: 1fr;
+      gap: $spacing-md;
+    }
+  }
+
+  &__form_group {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+
+    &:has(button) {
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding-bottom: 0;
+    }
+  }
+
+  &__form_label {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $text-primary;
+    display: block;
+    line-height: 1.4;
+  }
+
+  &__form_input,
+  &__form_select {
+    padding: 10px $spacing-md;
+    font-size: $font-size-base;
+    border: 1px solid $border-color;
+    border-radius: $radius-md;
+    background-color: $bg-primary;
+    width: 100%;
+    min-height: 40px;
+    box-sizing: border-box;
+    @include transition(all);
+    font-family: inherit;
+
+    &:focus {
+      outline: none;
+      border-color: $primary;
+      box-shadow: 0 0 0 3px rgba($primary, 0.1);
+    }
+
+    &:disabled {
+      background-color: $bg-secondary;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    &::placeholder {
+      color: $text-light;
+      font-size: $font-size-sm;
+    }
+  }
+
+  &__form_select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: $spacing-2xl;
+
+    &:disabled {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239ca3af' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    }
+  }
+
+  &__remove_button {
+    background-color: $error;
+    color: white;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    padding: 0;
+    border: none;
+    border-radius: $radius-md;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    @include transition(all);
+    flex-shrink: 0;
+    font-weight: $font-weight-bold;
+    margin-top: 24px;
+
+    &:hover {
+      background-color: darken($error, 8%);
+      transform: scale(1.05);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  &__add_button {
+    background-color: transparent;
+    color: $primary;
+    border: 2px dashed $primary;
+    padding: $spacing-md;
+    width: 100%;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    margin-top: $spacing-lg;
+    border-radius: $radius-md;
+    cursor: pointer;
+    @include transition(all);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+
+    &:hover {
+      background-color: rgba($primary, 0.05);
+      border-color: $primary-dark;
+      color: $primary-dark;
+      border-style: solid;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}

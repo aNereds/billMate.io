@@ -1,0 +1,252 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.reports {
+  min-height: 100vh;
+  background-color: $bg-secondary;
+
+  &__header {
+    background-color: $bg-primary;
+    border-bottom: 1px solid $border-color;
+    padding: $spacing-md 0;
+
+    &_container {
+      @include container;
+      @include flex-between;
+      gap: $spacing-xl;
+    }
+  }
+
+  &__logo {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $primary;
+  }
+
+  &__nav {
+    display: flex;
+    gap: $spacing-xl;
+    flex: 1;
+    justify-content: center;
+
+    @include mobile {
+      display: none;
+    }
+  }
+
+  &__nav_link {
+    font-size: $font-size-base;
+    color: $text-secondary;
+    text-decoration: none;
+    @include transition(color);
+
+    &:hover {
+      color: $primary;
+    }
+
+    &_active {
+      @extend .reports__nav_link;
+      color: $primary;
+      font-weight: $font-weight-semibold;
+    }
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    font-size: $font-size-base;
+    color: $text-primary;
+  }
+
+  &__user_icon {
+    font-size: $font-size-lg;
+  }
+
+  &__logout_button {
+    @include button-base;
+    background-color: transparent;
+    color: $text-secondary;
+    padding: $spacing-xs $spacing-md;
+    font-size: $font-size-sm;
+    margin-left: $spacing-md;
+
+    &:hover {
+      color: $error;
+    }
+  }
+
+  &__main {
+    padding: $spacing-2xl 0;
+  }
+
+  &__container {
+    @include container;
+  }
+
+  &__header_section {
+    @include flex-between;
+    margin-bottom: $spacing-2xl;
+    flex-wrap: wrap;
+    gap: $spacing-lg;
+  }
+
+  &__title {
+    font-size: $font-size-4xl;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+    margin-bottom: $spacing-sm;
+  }
+
+  &__subtitle {
+    font-size: $font-size-lg;
+    color: $text-secondary;
+  }
+
+  &__add_button {
+    @include button-base;
+    background-color: $primary;
+    color: white;
+    padding: $spacing-md $spacing-xl;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    border-radius: $radius-md;
+
+    &:hover {
+      background-color: $primary-dark;
+      transform: translateY(-1px);
+      box-shadow: $shadow-md;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: $spacing-xl;
+
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__card {
+    background-color: $bg-primary;
+    border-radius: $radius-xl;
+    padding: $spacing-xl;
+    box-shadow: $shadow-sm;
+    border: 1px solid $border-color;
+    @include transition(all);
+
+    &:hover {
+      box-shadow: $shadow-md;
+    }
+  }
+
+  &__card_header {
+    @include flex-between;
+    margin-bottom: $spacing-lg;
+  }
+
+  &__card_title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+    flex: 1;
+  }
+
+  &__badge {
+    display: inline-block;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $radius-full;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    text-transform: capitalize;
+
+    &_scheduled {
+      background-color: rgba($primary, 0.1);
+      color: $primary;
+    }
+
+    &_completed {
+      background-color: rgba($success, 0.1);
+      color: $success;
+    }
+
+    &_failed {
+      background-color: rgba($error, 0.1);
+      color: $error;
+    }
+  }
+
+  &__card_body {
+    margin-bottom: $spacing-lg;
+  }
+
+  &__card_info {
+    display: flex;
+    justify-content: space-between;
+    padding: $spacing-sm 0;
+    border-bottom: 1px solid $border-color;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__card_label {
+    font-size: $font-size-sm;
+    color: $text-secondary;
+    font-weight: $font-weight-medium;
+  }
+
+  &__card_value {
+    font-size: $font-size-sm;
+    color: $text-primary;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__card_actions {
+    display: flex;
+    gap: $spacing-sm;
+    flex-wrap: wrap;
+  }
+
+  &__run_button,
+  &__edit_button,
+  &__delete_button {
+    @include button-base;
+    padding: $spacing-xs $spacing-md;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    border-radius: $radius-md;
+    flex: 1;
+    min-width: 80px;
+  }
+
+  &__run_button {
+    background-color: $success;
+    color: white;
+
+    &:hover {
+      background-color: #0d9668;
+    }
+  }
+
+  &__edit_button {
+    background-color: $primary;
+    color: white;
+
+    &:hover {
+      background-color: $primary-dark;
+    }
+  }
+
+  &__delete_button {
+    background-color: $error;
+    color: white;
+
+    &:hover {
+      background-color: #dc2626;
+    }
+  }
+}

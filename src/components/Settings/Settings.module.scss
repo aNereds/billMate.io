@@ -1,0 +1,320 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.settings {
+  min-height: 100vh;
+  background-color: $bg-secondary;
+
+  &__header {
+    background-color: $bg-primary;
+    border-bottom: 1px solid $border-color;
+    padding: $spacing-md 0;
+
+    &_container {
+      @include container;
+      @include flex-between;
+      gap: $spacing-xl;
+    }
+  }
+
+  &__logo {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $primary;
+  }
+
+  &__nav {
+    display: flex;
+    gap: $spacing-xl;
+    flex: 1;
+    justify-content: center;
+
+    @include mobile {
+      display: none;
+    }
+  }
+
+  &__nav_link {
+    font-size: $font-size-base;
+    color: $text-secondary;
+    text-decoration: none;
+    @include transition(color);
+
+    &:hover {
+      color: $primary;
+    }
+
+    &_active {
+      @extend .settings__nav_link;
+      color: $primary;
+      font-weight: $font-weight-semibold;
+    }
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    font-size: $font-size-base;
+    color: $text-primary;
+  }
+
+  &__user_icon {
+    font-size: $font-size-lg;
+  }
+
+  &__logout_button {
+    @include button-base;
+    background-color: transparent;
+    color: $text-secondary;
+    padding: $spacing-xs $spacing-md;
+    font-size: $font-size-sm;
+    margin-left: $spacing-md;
+
+    &:hover {
+      color: $error;
+    }
+  }
+
+  &__main {
+    padding: $spacing-2xl 0;
+  }
+
+  &__container {
+    @include container;
+  }
+
+  &__title {
+    font-size: $font-size-4xl;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+    margin-bottom: $spacing-sm;
+  }
+
+  &__subtitle {
+    font-size: $font-size-lg;
+    color: $text-secondary;
+    margin-bottom: $spacing-2xl;
+  }
+
+  &__section {
+    background-color: $bg-primary;
+    border-radius: $radius-xl;
+    padding: $spacing-xl;
+    margin-bottom: $spacing-xl;
+    box-shadow: $shadow-sm;
+    border: 1px solid $border-color;
+  }
+
+  &__section_header {
+    @include flex-between;
+    margin-bottom: $spacing-lg;
+  }
+
+  &__section_title {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+  }
+
+  &__add_button {
+    @include button-base;
+    background-color: $primary;
+    color: white;
+    padding: $spacing-sm $spacing-lg;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    border-radius: $radius-md;
+
+    &:hover {
+      background-color: $primary-dark;
+      transform: translateY(-1px);
+      box-shadow: $shadow-md;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+  }
+
+  &__item {
+    @include flex-between;
+    padding: $spacing-lg;
+    border: 1px solid $border-color;
+    border-radius: $radius-md;
+    background-color: $bg-secondary;
+    @include transition(all);
+
+    &:hover {
+      box-shadow: $shadow-sm;
+    }
+  }
+
+  &__item_content {
+    flex: 1;
+  }
+
+  &__item_title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+    margin-bottom: $spacing-xs;
+  }
+
+  &__item_details {
+    display: flex;
+    gap: $spacing-sm;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  &__badge {
+    display: inline-block;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $radius-full;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    text-transform: capitalize;
+
+    &_active {
+      background-color: rgba($success, 0.1);
+      color: $success;
+    }
+
+    &_inactive {
+      background-color: rgba($text-secondary, 0.1);
+      color: $text-secondary;
+    }
+  }
+
+  &__tag {
+    display: inline-block;
+    padding: $spacing-xs $spacing-sm;
+    background-color: rgba($primary, 0.1);
+    color: $primary;
+    border-radius: $radius-md;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+  }
+
+  &__item_actions {
+    display: flex;
+    gap: $spacing-sm;
+  }
+
+  &__edit_button,
+  &__delete_button {
+    @include button-base;
+    padding: $spacing-xs $spacing-md;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    border-radius: $radius-md;
+  }
+
+  &__edit_button {
+    background-color: $primary;
+    color: white;
+
+    &:hover {
+      background-color: $primary-dark;
+    }
+  }
+
+  &__delete_button {
+    background-color: $error;
+    color: white;
+
+    &:hover {
+      background-color: #dc2626;
+    }
+  }
+
+  &__security {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xl;
+  }
+
+  &__security_item {
+    @include flex-between;
+    align-items: center;
+    padding: $spacing-lg;
+    border: 1px solid $border-color;
+    border-radius: $radius-md;
+    background-color: $bg-secondary;
+  }
+
+  &__security_title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+    margin-bottom: $spacing-xs;
+  }
+
+  &__security_description {
+    font-size: $font-size-sm;
+    color: $text-secondary;
+  }
+
+  &__toggle {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+
+    input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+
+      &:checked + .settings__toggle_slider {
+        background-color: $primary;
+
+        &:before {
+          transform: translateX(24px);
+        }
+      }
+    }
+  }
+
+  &__toggle_slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $text-light;
+    @include transition(all);
+    border-radius: $radius-full;
+
+    &:before {
+      position: absolute;
+      content: '';
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      @include transition(all);
+      border-radius: 50%;
+    }
+  }
+
+  &__input {
+    padding: $spacing-md;
+    font-size: $font-size-base;
+    border: 2px solid $border-color;
+    border-radius: $radius-md;
+    width: 120px;
+    @include transition(all);
+
+    &:focus {
+      outline: none;
+      border-color: $primary;
+      box-shadow: 0 0 0 3px rgba($primary, 0.1);
+    }
+  }
+}
