@@ -438,12 +438,6 @@ class AdminPanel extends Component<{}, AdminPanelState> {
     });
   };
 
-  handleProcessPayout = (payoutId: string) => {
-    console.log('Process payout:', payoutId);
-    // Demo functionality
-    alert(`Processing payout ${payoutId}`);
-  };
-
   handleLogout = () => {
     authService.logout();
     window.location.href = '/';
@@ -546,7 +540,14 @@ class AdminPanel extends Component<{}, AdminPanelState> {
       showEditClientModal,
       showReviewClientModal,
       showDeleteModal,
+      showViewInvoiceModal,
+      showApproveRejectModal,
+      showViewPayoutModal,
+      showProcessPayoutModal,
       selectedClient,
+      selectedInvoice,
+      selectedPayout,
+      approveRejectType,
       deleteType,
       deleteId,
       deleteName,

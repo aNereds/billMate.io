@@ -10,8 +10,6 @@ import { sampleDataService } from '@/utils/auth';
 import AddDebtorModal from './AddDebtorModal';
 import DeleteConfirmModal from './DeleteConfirmModal';
 import NotificationModal from './NotificationModal';
-import DeleteConfirmModal from './DeleteConfirmModal';
-import NotificationModal from './NotificationModal';
 
 interface DashboardState {
   invoices: Invoice[];
@@ -277,6 +275,13 @@ class Dashboard extends Component<{}, DashboardState> {
       debtors,
       showAddInvoice,
       showAddDebtorModal,
+      showDeleteModal,
+      showNotificationModal,
+      deleteType,
+      deleteId,
+      deleteName,
+      notificationTitle,
+      notificationMessage,
       newInvoice,
     } = this.state;
     
