@@ -23,6 +23,7 @@ import { authService } from '@/utils/auth';
 interface AnalyticsState {
   selectedPeriod: 'week' | 'month' | 'quarter' | 'year';
   selectedCategory: 'all' | 'invoices' | 'debtors' | 'payouts';
+  isMobileMenuOpen: boolean;
 }
 
 const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
@@ -254,6 +255,7 @@ class Analytics extends Component<{}, AnalyticsState> {
     this.state = {
       selectedPeriod: 'month',
       selectedCategory: 'all',
+      isMobileMenuOpen: false,
     };
   }
 
@@ -262,7 +264,30 @@ class Analytics extends Component<{}, AnalyticsState> {
       window.location.href = '/onboarding';
       return;
     }
+
+    // Close mobile menu on window resize
+    window.addEventListener('resize', this.handleResize);
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+
+  handleResize = () => {
+    if (window.innerWidth > 1024) {
+      this.setState({ isMobileMenuOpen: false });
+    }
+  };
+
+  handleToggleMobileMenu = () => {
+    this.setState((prevState) => ({
+      isMobileMenuOpen: !prevState.isMobileMenuOpen,
+    }));
+  };
+
+  handleCloseMobileMenu = () => {
+    this.setState({ isMobileMenuOpen: false });
+  };
 
   handlePeriodChange = (period: AnalyticsState['selectedPeriod']) => {
     this.setState({ selectedPeriod: period });
@@ -333,7 +358,89 @@ class Analytics extends Component<{}, AnalyticsState> {
                 Logout
               </button>
             </div>
+            <button
+              className={styles.analytics__burger}
+              onClick={this.handleToggleMobileMenu}
+              aria-label="Toggle menu"
+            >
+              <span
+                className={`${styles.analytics__burger_line} ${
+                  this.state.isMobileMenuOpen
+                    ? styles['analytics__burger_line--open']
+                    : ''
+                }`}
+              ></span>
+              <span
+                className={`${styles.analytics__burger_line} ${
+                  this.state.isMobileMenuOpen
+                    ? styles['analytics__burger_line--open']
+                    : ''
+                }`}
+              ></span>
+              <span
+                className={`${styles.analytics__burger_line} ${
+                  this.state.isMobileMenuOpen
+                    ? styles['analytics__burger_line--open']
+                    : ''
+                }`}
+              ></span>
+            </button>
           </div>
+          {this.state.isMobileMenuOpen && (
+            <div className={styles.analytics__mobile_menu}>
+              <Link
+                href="/dashboard/analytics"
+                className={`${styles.analytics__mobile_menu_item} ${styles['analytics__mobile_menu_item--active']}`}
+                onClick={this.handleCloseMobileMenu}
+              >
+                Dashboard
+              </Link>
+              <Link
+                href="/error"
+                className={styles.analytics__mobile_menu_item}
+                onClick={this.handleCloseMobileMenu}
+              >
+                Invoices
+              </Link>
+              <Link
+                href="/error"
+                className={styles.analytics__mobile_menu_item}
+                onClick={this.handleCloseMobileMenu}
+              >
+                Debtors
+              </Link>
+              <Link
+                href="/reports"
+                className={styles.analytics__mobile_menu_item}
+                onClick={this.handleCloseMobileMenu}
+              >
+                Reports
+              </Link>
+              <Link
+                href="/settings"
+                className={styles.analytics__mobile_menu_item}
+                onClick={this.handleCloseMobileMenu}
+              >
+                Settings
+              </Link>
+              <Link
+                href="/admin"
+                className={styles.analytics__mobile_menu_item}
+                onClick={this.handleCloseMobileMenu}
+              >
+                👤 Admin
+              </Link>
+              <button
+                onClick={() => {
+                  this.handleCloseMobileMenu();
+                  this.handleLogout();
+                }}
+                className={`${styles.analytics__mobile_menu_item} ${styles['analytics__mobile_menu_item--logout']}`}
+              >
+                Logout
+              </button>
+            </div>
+          )}
         </header>
 
         <main className={styles.analytics__main}>

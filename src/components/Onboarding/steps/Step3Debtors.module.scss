@@ -116,6 +116,14 @@
     font-weight: $font-weight-bold;
     margin-top: 24px;
 
+    @include mobile {
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+
     &:hover {
       background-color: darken($error, 8%);
       transform: scale(1.05);
@@ -138,6 +146,12 @@
     border-radius: $radius-md;
     cursor: pointer;
     @include transition(all);
+    white-space: nowrap;
+
+    @include mobile {
+      padding: $spacing-sm $spacing-md;
+      font-size: $font-size-sm;
+    }
     display: flex;
     align-items: center;
     justify-content: center;

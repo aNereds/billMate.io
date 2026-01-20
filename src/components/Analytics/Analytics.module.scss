@@ -9,11 +9,17 @@
     background-color: $bg-primary;
     border-bottom: 1px solid $border-color;
     padding: $spacing-md 0;
+    position: relative;
 
     &_container {
       @include container;
       @include flex-between;
       gap: $spacing-xl;
+
+      @include mobile {
+        flex-wrap: wrap;
+        gap: $spacing-sm;
+      }
     }
   }
 
@@ -29,7 +35,7 @@
     flex: 1;
     justify-content: center;
 
-    @include mobile {
+    @media (max-width: 1024px) {
       display: none;
     }
   }
@@ -57,6 +63,11 @@
     gap: $spacing-sm;
     font-size: $font-size-base;
     color: $text-primary;
+
+    @media (max-width: 1024px) {
+      font-size: $font-size-sm;
+      display: none;
+    }
   }
 
   &__user_icon {
@@ -70,9 +81,120 @@
     padding: $spacing-xs $spacing-md;
     font-size: $font-size-sm;
     margin-left: $spacing-md;
+    white-space: nowrap;
+
+    @media (max-width: 1024px) {
+      display: none;
+    }
 
     &:hover {
       color: $error;
+    }
+  }
+
+  &__burger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 28px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10;
+
+    @media (max-width: 1024px) {
+      display: flex;
+    }
+
+    &:focus {
+      outline: 2px solid $primary;
+      outline-offset: 2px;
+    }
+  }
+
+  &__burger_line {
+    width: 100%;
+    height: 3px;
+    background-color: $primary;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+
+    &--open {
+      &:nth-child(1) {
+        transform: rotate(45deg) translate(8px, 8px);
+      }
+
+      &:nth-child(2) {
+        opacity: 0;
+      }
+
+      &:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
+      }
+    }
+  }
+
+  &__mobile_menu {
+    display: none;
+
+    @media (max-width: 1024px) {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background-color: $bg-primary;
+      border-bottom: 1px solid $border-color;
+      box-shadow: $shadow-lg;
+      z-index: 100;
+      animation: slideDown 0.3s ease-out;
+    }
+  }
+
+  &__mobile_menu_item {
+    display: none;
+
+    @media (max-width: 1024px) {
+      display: block;
+      width: 100%;
+      padding: $spacing-md $spacing-lg;
+      text-align: left;
+      background: none;
+      border: none;
+      font-size: $font-size-base;
+      color: $text-secondary;
+      text-decoration: none;
+      cursor: pointer;
+      border-bottom: 1px solid $border-color;
+      @include transition(all);
+
+      &:hover {
+        background-color: $bg-secondary;
+        color: $primary;
+      }
+
+      &--active {
+        color: $primary;
+        font-weight: $font-weight-semibold;
+        background-color: rgba($primary, 0.05);
+      }
+
+      &--logout {
+        color: $error;
+        font-weight: $font-weight-medium;
+
+        &:hover {
+          background-color: rgba($error, 0.1);
+        }
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
     }
   }
 
@@ -93,11 +215,19 @@
     font-weight: $font-weight-bold;
     color: $text-primary;
     margin-bottom: $spacing-sm;
+
+    @include mobile {
+      font-size: $font-size-2xl;
+    }
   }
 
   &__subtitle {
     font-size: $font-size-lg;
     color: $text-secondary;
+
+    @include mobile {
+      font-size: $font-size-base;
+    }
   }
 
   &__filters {
@@ -109,12 +239,26 @@
     background-color: $bg-primary;
     border-radius: $radius-lg;
     border: 1px solid $border-color;
+
+    @include mobile {
+      flex-direction: column;
+      gap: $spacing-md;
+      padding: $spacing-md;
+    }
   }
 
   &__filter_group {
     display: flex;
     align-items: center;
     gap: $spacing-md;
+    flex-wrap: wrap;
+
+    @include mobile {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $spacing-sm;
+      width: 100%;
+    }
   }
 
   &__filter_label {
@@ -122,11 +266,21 @@
     font-weight: $font-weight-medium;
     color: $text-primary;
     white-space: nowrap;
+
+    @include mobile {
+      font-size: $font-size-xs;
+    }
   }
 
   &__filter_buttons {
     display: flex;
     gap: $spacing-xs;
+    flex-wrap: wrap;
+
+    @include mobile {
+      width: 100%;
+      gap: $spacing-xs;
+    }
   }
 
   &__filter_button {
@@ -137,6 +291,14 @@
     color: $text-secondary;
     border: 1px solid $border-color;
     border-radius: $radius-md;
+    white-space: nowrap;
+
+    @include mobile {
+      padding: $spacing-xs $spacing-sm;
+      font-size: $font-size-xs;
+      flex: 1;
+      min-width: 0;
+    }
 
     &:hover {
       background-color: $bg-primary;
@@ -159,6 +321,11 @@
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: $spacing-lg;
     margin-bottom: $spacing-2xl;
+
+    @include mobile {
+      grid-template-columns: 1fr;
+      gap: $spacing-md;
+    }
   }
 
   &__summary_card {
@@ -183,6 +350,10 @@
     font-weight: $font-weight-bold;
     color: $text-primary;
     margin-bottom: $spacing-xs;
+
+    @include mobile {
+      font-size: $font-size-2xl;
+    }
   }
 
   &__summary_change {
@@ -220,5 +391,16 @@
     font-weight: $font-weight-bold;
     color: $text-primary;
     margin-bottom: $spacing-lg;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

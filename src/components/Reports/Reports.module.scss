@@ -14,6 +14,11 @@
       @include container;
       @include flex-between;
       gap: $spacing-xl;
+
+      @include mobile {
+        flex-wrap: wrap;
+        gap: $spacing-sm;
+      }
     }
   }
 

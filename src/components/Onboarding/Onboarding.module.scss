@@ -57,7 +57,7 @@
   &__progress_step {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
+    border-radius: $radius-md;
     background-color: $bg-secondary;
     border: 2px solid $border-color;
     display: flex;
@@ -66,6 +66,13 @@
     font-weight: $font-weight-bold;
     color: $text-secondary;
     @include transition(all);
+
+    @include mobile {
+      width: 32px;
+      height: 32px;
+      font-size: $font-size-sm;
+      border-radius: $radius-sm;
+    }
 
     &--active {
       background-color: $primary;
@@ -81,6 +88,11 @@
     margin: 0 $spacing-sm;
     @include transition(background-color);
 
+    @include mobile {
+      width: 40px;
+      margin: 0 $spacing-xs;
+    }
+
     &--active {
       background-color: $primary;
     }
@@ -90,17 +102,37 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: $spacing-xs;
+
+    @include mobile {
+      flex-wrap: wrap;
+      gap: $spacing-xs;
+    }
   }
 
   &__progress_text {
     font-size: $font-size-sm;
     color: $text-secondary;
+    white-space: nowrap;
+
+    @include mobile {
+      font-size: $font-size-xs;
+    }
   }
 
   &__progress_title {
     font-size: $font-size-sm;
     color: $text-secondary;
     font-weight: $font-weight-medium;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @include mobile {
+      font-size: $font-size-xs;
+      flex: 1;
+      min-width: 0;
+    }
   }
 
   &__content {
@@ -112,6 +144,11 @@
     display: flex;
     justify-content: space-between;
     gap: $spacing-md;
+
+    @include mobile {
+      gap: $spacing-xs;
+      flex-wrap: wrap;
+    }
   }
 
   &__button_back {
@@ -119,6 +156,14 @@
     background-color: transparent;
     color: $text-secondary;
     border: 1px solid $border-color;
+    padding: $spacing-sm $spacing-md;
+    font-size: $font-size-sm;
+    white-space: nowrap;
+
+    @include mobile {
+      padding: $spacing-xs $spacing-sm;
+      font-size: $font-size-xs;
+    }
 
     &:hover {
       background-color: $bg-secondary;
@@ -132,6 +177,13 @@
     color: white;
     padding: $spacing-md $spacing-xl;
     margin-left: auto;
+    white-space: nowrap;
+    font-size: $font-size-base;
+
+    @include mobile {
+      padding: $spacing-xs $spacing-md;
+      font-size: $font-size-sm;
+    }
 
     &:hover:not(:disabled) {
       background-color: $primary-dark;
