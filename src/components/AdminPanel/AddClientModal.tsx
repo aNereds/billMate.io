@@ -45,7 +45,6 @@ class AddClientModal extends Component<AddClientModalProps, AddClientModalState>
 
   componentDidUpdate(prevProps: AddClientModalProps) {
     if (this.props.isOpen && !prevProps.isOpen) {
-      // Reset form when modal opens
       this.setState({
         formData: {
           name: '',
@@ -55,10 +54,8 @@ class AddClientModal extends Component<AddClientModalProps, AddClientModalState>
         },
         errors: {},
       });
-      // Add escape key listener
       document.addEventListener('keydown', this.handleEscapeKey);
     } else if (!this.props.isOpen && prevProps.isOpen) {
-      // Remove escape key listener when modal closes
       document.removeEventListener('keydown', this.handleEscapeKey);
     }
   }

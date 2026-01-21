@@ -45,7 +45,6 @@ class AddDebtorModal extends Component<AddDebtorModalProps, AddDebtorModalState>
 
   componentDidUpdate(prevProps: AddDebtorModalProps) {
     if (this.props.isOpen && !prevProps.isOpen) {
-      // Reset form when modal opens
       this.setState({
         formData: {
           companyName: '',
@@ -55,10 +54,8 @@ class AddDebtorModal extends Component<AddDebtorModalProps, AddDebtorModalState>
         },
         errors: {},
       });
-      // Add escape key listener
       document.addEventListener('keydown', this.handleEscapeKey);
     } else if (!this.props.isOpen && prevProps.isOpen) {
-      // Remove escape key listener when modal closes
       document.removeEventListener('keydown', this.handleEscapeKey);
     }
   }

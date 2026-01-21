@@ -120,7 +120,6 @@ class Settings extends Component<{}, SettingsState> {
 
     this.loadData();
 
-    // Close mobile menu on window resize
     window.addEventListener('resize', this.handleResize);
   }
 
@@ -146,13 +145,13 @@ class Settings extends Component<{}, SettingsState> {
 
   loadData = () => {
     const storedNotifications = storageService.getItems<Notification>(
-      'billmate_notifications'
+      'billapp_notifications'
     );
     const storedIntegrations = storageService.getItems<Integration>(
-      'billmate_integrations'
+      'billapp_integrations'
     );
     const storedSecurity = storageService.getItems<SettingsState['securitySettings']>(
-      'billmate_security'
+      'billapp_security'
     );
 
     this.setState({
@@ -204,7 +203,7 @@ class Settings extends Component<{}, SettingsState> {
     }
 
     this.setState({ notifications: updatedNotifications });
-    storageService.saveItems('billmate_notifications', updatedNotifications);
+    storageService.saveItems('billapp_notifications', updatedNotifications);
     this.handleCloseNotificationModal();
   };
 
@@ -217,7 +216,7 @@ class Settings extends Component<{}, SettingsState> {
       (n) => n.id !== id
     );
     this.setState({ notifications: updatedNotifications });
-    storageService.saveItems('billmate_notifications', updatedNotifications);
+    storageService.saveItems('billapp_notifications', updatedNotifications);
   };
 
   handleCloseNotificationModal = () => {
@@ -260,7 +259,7 @@ class Settings extends Component<{}, SettingsState> {
     }
 
     this.setState({ integrations: updatedIntegrations });
-    storageService.saveItems('billmate_integrations', updatedIntegrations);
+    storageService.saveItems('billapp_integrations', updatedIntegrations);
     this.handleCloseIntegrationModal();
   };
 
@@ -273,7 +272,7 @@ class Settings extends Component<{}, SettingsState> {
       (i) => i.id !== id
     );
     this.setState({ integrations: updatedIntegrations });
-    storageService.saveItems('billmate_integrations', updatedIntegrations);
+    storageService.saveItems('billapp_integrations', updatedIntegrations);
   };
 
   handleCloseIntegrationModal = () => {
@@ -289,7 +288,7 @@ class Settings extends Component<{}, SettingsState> {
       [field]: value,
     };
     this.setState({ securitySettings: updatedSecurity });
-    storageService.saveItems('billmate_security', [updatedSecurity]);
+    storageService.saveItems('billapp_security', [updatedSecurity]);
   };
 
   handleLogout = () => {
@@ -312,7 +311,7 @@ class Settings extends Component<{}, SettingsState> {
       <div className={styles.settings}>
         <header className={styles.settings__header}>
           <div className={styles.settings__header_container}>
-            <div className={styles.settings__logo}>BillMate.io</div>
+            <div className={styles.settings__logo}>BillApp.io</div>
             <nav className={styles.settings__nav}>
               <Link
                 href="/dashboard/analytics"

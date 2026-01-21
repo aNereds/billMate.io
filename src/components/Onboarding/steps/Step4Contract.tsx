@@ -44,7 +44,6 @@ class Step4Contract extends Component<Step4ContractProps, Step4ContractState> {
   }
 
   componentDidMount() {
-    // Listen for validation notification event
     window.addEventListener('showValidationNotification', this.handleNotificationEvent);
   }
 
@@ -140,7 +139,7 @@ class Step4Contract extends Component<Step4ContractProps, Step4ContractState> {
                 <div className={styles.step4__section_item}>
                   <strong>1. PARTIES:</strong>
                   <p>
-                    This Factoring Agreement is entered into between BillMate.io
+                    This Factoring Agreement is entered into between BillApp.io
                     AS (the "Factor") and the Client (the "Creditor") as
                     identified in the registration process.
                   </p>

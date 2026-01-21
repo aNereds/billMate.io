@@ -51,12 +51,10 @@ class Onboarding extends Component<{}, OnboardingState> {
 
   handleNext = () => {
     if (this.state.currentStep < 4) {
-      // Validate current step before proceeding
       if (this.state.currentStep === 1) {
         const { name, email, phone, identityVerified } = this.state.formData;
         
         if (!identityVerified || !name || !email || !phone) {
-          // Trigger validation in Step1Identity
           const event = new CustomEvent('validateStep1');
           window.dispatchEvent(event);
           return;
@@ -67,7 +65,6 @@ class Onboarding extends Component<{}, OnboardingState> {
         const { selectedCompany } = this.state.formData;
         
         if (!selectedCompany) {
-          // Trigger validation in Step2Company
           const event = new CustomEvent('validateStep2');
           window.dispatchEvent(event);
           return;
@@ -91,7 +88,6 @@ class Onboarding extends Component<{}, OnboardingState> {
   };
 
   handleLogin = () => {
-    // Mock login - fill form with mock data and save to localStorage
     const userData = {
       name: mockUser.name,
       email: mockUser.email,
@@ -107,26 +103,22 @@ class Onboarding extends Component<{}, OnboardingState> {
       },
     });
     
-    // Save to localStorage
     authService.login(userData);
   };
 
   handleSignup = () => {
-    // Mock signup - same as login for demo
     this.handleLogin();
   };
 
   handleComplete = () => {
     const { contractAgreed, termsAgreed, policyAgreed } = this.state.formData;
 
-    // Validate all checkboxes
     if (!contractAgreed || !termsAgreed || !policyAgreed) {
       const missing: string[] = [];
       if (!contractAgreed) missing.push('Factoring Contract');
       if (!termsAgreed) missing.push('Contract Terms');
       if (!policyAgreed) missing.push('Additional Policy');
 
-      // Trigger notification in Step4Contract
       const event = new CustomEvent('showValidationNotification', {
         detail: {
           message: `Please confirm all agreements: ${missing.join(', ')}`,
@@ -136,7 +128,6 @@ class Onboarding extends Component<{}, OnboardingState> {
       return;
     }
 
-    // Save completed onboarding to localStorage
     const userData = {
       name: this.state.formData.name || mockUser.name,
       email: this.state.formData.email || mockUser.email,
@@ -147,7 +138,6 @@ class Onboarding extends Component<{}, OnboardingState> {
     
     authService.completeOnboarding(userData);
     
-    // Redirect to dashboard
     window.location.href = '/dashboard';
   };
 
@@ -170,7 +160,7 @@ class Onboarding extends Component<{}, OnboardingState> {
             ]}
           />
           <div className={styles.onboarding__header}>
-            <h1 className={styles.onboarding__title}>Welcome to BillMate.io</h1>
+            <h1 className={styles.onboarding__title}>Welcome to BillApp.io</h1>
             <p className={styles.onboarding__subtitle}>
               Let's get your account set up
             </p>

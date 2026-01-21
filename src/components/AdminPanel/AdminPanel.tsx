@@ -81,19 +81,15 @@ class AdminPanel extends Component<{}, AdminPanelState> {
   }
 
   componentDidMount() {
-    // Check authentication
     if (!authService.isAuthenticated()) {
       window.location.href = '/onboarding';
       return;
     }
 
-    // Load data
     this.loadData();
 
-    // Close mobile menu on window resize
     window.addEventListener('resize', this.handleResize);
 
-    // Mark sample data
     mockClients.forEach((client) => {
       sampleDataService.markAsSample(client.id, 'client');
     });
@@ -193,7 +189,6 @@ class AdminPanel extends Component<{}, AdminPanelState> {
           status: 'approved',
         });
       } else {
-        // For mock invoices, update state
         const updatedInvoices = invoices.map((inv) =>
           inv.id === this.state.selectedInvoice!.id
             ? { ...inv, status: 'approved' as const }
@@ -217,7 +212,6 @@ class AdminPanel extends Component<{}, AdminPanelState> {
           status: 'rejected',
         });
       } else {
-        // For mock invoices, update state
         const updatedInvoices = invoices.map((inv) =>
           inv.id === this.state.selectedInvoice!.id
             ? { ...inv, status: 'rejected' as const }
@@ -276,7 +270,6 @@ class AdminPanel extends Component<{}, AdminPanelState> {
           status: 'processing',
         });
       } else {
-        // For mock payouts, update state
         const updatedPayouts = payouts.map((p) =>
           p.id === this.state.selectedPayout!.id
             ? { ...p, status: 'processing' as const }
@@ -338,7 +331,6 @@ class AdminPanel extends Component<{}, AdminPanelState> {
     const client = clients.find((c) => c.id === clientId);
     
     if (client) {
-      // Check if it's a mock client (not in localStorage)
       const storedClients = storageService.getItems<Client>(STORAGE_KEYS.CLIENTS);
       const isStored = storedClients.some((c) => c.id === clientId);
       
@@ -347,8 +339,6 @@ class AdminPanel extends Component<{}, AdminPanelState> {
           status: 'active',
         });
       } else {
-        // For mock clients, we can't update them, but we can add a new entry
-        // or just update the state for demo purposes
         const updatedClients = clients.map((c) =>
           c.id === clientId ? { ...c, status: 'active' as const } : c
         );
@@ -364,7 +354,6 @@ class AdminPanel extends Component<{}, AdminPanelState> {
     const client = clients.find((c) => c.id === clientId);
     
     if (client) {
-      // Check if it's a mock client (not in localStorage)
       const storedClients = storageService.getItems<Client>(STORAGE_KEYS.CLIENTS);
       const isStored = storedClients.some((c) => c.id === clientId);
       
@@ -373,7 +362,6 @@ class AdminPanel extends Component<{}, AdminPanelState> {
           status: 'suspended',
         });
       } else {
-        // For mock clients, update state for demo purposes
         const updatedClients = clients.map((c) =>
           c.id === clientId ? { ...c, status: 'suspended' as const } : c
         );
@@ -418,7 +406,6 @@ class AdminPanel extends Component<{}, AdminPanelState> {
           clientData
         );
       } else {
-        // For mock clients, update state for demo purposes
         const updatedClients = clients.map((c) =>
           c.id === this.state.selectedClient!.id
             ? { ...clientData, id: this.state.selectedClient!.id }

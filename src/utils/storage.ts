@@ -1,12 +1,9 @@
-// LocalStorage utilities for CRUD operations
-
 export interface StorageData<T> {
   items: T[];
   lastUpdated: string;
 }
 
 export const storageService = {
-  // Get items from localStorage
   getItems: <T>(key: string): T[] => {
     if (typeof window === 'undefined') return [];
     const data = localStorage.getItem(key);
@@ -19,7 +16,6 @@ export const storageService = {
     }
   },
 
-  // Save items to localStorage
   saveItems: <T>(key: string, items: T[]): void => {
     if (typeof window === 'undefined') return;
     const data: StorageData<T> = {
@@ -29,14 +25,12 @@ export const storageService = {
     localStorage.setItem(key, JSON.stringify(data));
   },
 
-  // Add item
   addItem: <T>(key: string, item: T): void => {
     const items = storageService.getItems<T>(key);
     items.push(item);
     storageService.saveItems(key, items);
   },
 
-  // Remove item by ID
   removeItem: <T extends { id: string }>(key: string, id: string): boolean => {
     const items = storageService.getItems<T>(key);
     const filtered = items.filter((item) => item.id !== id);
@@ -44,7 +38,6 @@ export const storageService = {
     return filtered.length < items.length;
   },
 
-  // Update item
   updateItem: <T extends { id: string }>(
     key: string,
     id: string,
@@ -59,10 +52,9 @@ export const storageService = {
   },
 };
 
-// Storage keys
 export const STORAGE_KEYS = {
-  INVOICES: 'billmate_invoices',
-  DEBTORS: 'billmate_debtors',
-  CLIENTS: 'billmate_clients',
-  PAYOUTS: 'billmate_payouts',
+  INVOICES: 'billapp_invoices',
+  DEBTORS: 'billapp_debtors',
+  CLIENTS: 'billapp_clients',
+  PAYOUTS: 'billapp_payouts',
 };

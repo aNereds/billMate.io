@@ -29,7 +29,6 @@ interface AnalyticsState {
 
 const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
 
-// Data generators for different periods
 const getInvoiceStatusData = (period: string, category: string) => {
   const baseData = {
     week: [
@@ -266,7 +265,6 @@ class Analytics extends Component<{}, AnalyticsState> {
       return;
     }
 
-    // Close mobile menu on window resize
     window.addEventListener('resize', this.handleResize);
   }
 
@@ -306,7 +304,6 @@ class Analytics extends Component<{}, AnalyticsState> {
   render() {
     const { selectedPeriod, selectedCategory } = this.state;
 
-    // Get filtered data based on selected filters
     const invoiceStatusData = getInvoiceStatusData(selectedPeriod, selectedCategory);
     const revenueData = getRevenueData(selectedPeriod);
     const categoryDistributionData = getCategoryData(selectedPeriod, selectedCategory);
@@ -328,7 +325,7 @@ class Analytics extends Component<{}, AnalyticsState> {
       <div className={styles.analytics}>
         <header className={styles.analytics__header}>
           <div className={styles.analytics__header_container}>
-            <div className={styles.analytics__logo}>BillMate.io</div>
+            <div className={styles.analytics__logo}>BillApp.io</div>
             <nav className={styles.analytics__nav}>
               <Link
                 href="/dashboard/analytics"
