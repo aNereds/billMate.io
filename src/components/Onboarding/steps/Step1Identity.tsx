@@ -109,7 +109,6 @@ class Step1Identity extends Component<Step1IdentityProps, Step1IdentityState> {
     const { name, value } = e.target;
     this.props.onDataChange({ [name]: value });
 
-    // Clear error when user starts typing
     this.setState((prevState) => ({
       errors: {
         ...prevState.errors,
@@ -120,13 +119,11 @@ class Step1Identity extends Component<Step1IdentityProps, Step1IdentityState> {
 
   handleLogin = () => {
     this.props.onLogin();
-    // Clear errors after login
     this.setState({ errors: {} });
   };
 
   handleSignup = () => {
     this.props.onSignup();
-    // Clear errors after signup
     this.setState({ errors: {} });
   };
 

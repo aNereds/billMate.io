@@ -83,7 +83,6 @@ class Reports extends Component<{}, ReportsState> {
 
     this.loadData();
 
-    // Close mobile menu on window resize
     window.addEventListener('resize', this.handleResize);
   }
 
@@ -108,7 +107,7 @@ class Reports extends Component<{}, ReportsState> {
   };
 
   loadData = () => {
-    const storedReports = storageService.getItems<Report>('billmate_reports');
+    const storedReports = storageService.getItems<Report>('billapp_reports');
     this.setState({
       reports:
         storedReports.length > 0 ? storedReports : DEFAULT_REPORTS,
@@ -148,7 +147,7 @@ class Reports extends Component<{}, ReportsState> {
     }
 
     this.setState({ reports: updatedReports });
-    storageService.saveItems('billmate_reports', updatedReports);
+    storageService.saveItems('billapp_reports', updatedReports);
     this.handleCloseReportModal();
   };
 
@@ -159,14 +158,13 @@ class Reports extends Component<{}, ReportsState> {
 
     const updatedReports = this.state.reports.filter((r) => r.id !== id);
     this.setState({ reports: updatedReports });
-    storageService.saveItems('billmate_reports', updatedReports);
+    storageService.saveItems('billapp_reports', updatedReports);
   };
 
   handleRunReport = (id: string) => {
     const report = this.state.reports.find((r) => r.id === id);
     if (report) {
       alert(`Running report: ${report.name}`);
-      // Simulate report run
       const updatedReports = this.state.reports.map((r) =>
         r.id === id
           ? {
@@ -177,7 +175,7 @@ class Reports extends Component<{}, ReportsState> {
           : r
       );
       this.setState({ reports: updatedReports });
-      storageService.saveItems('billmate_reports', updatedReports);
+      storageService.saveItems('billapp_reports', updatedReports);
     }
   };
 
@@ -200,7 +198,7 @@ class Reports extends Component<{}, ReportsState> {
       <div className={styles.reports}>
         <header className={styles.reports__header}>
           <div className={styles.reports__header_container}>
-            <div className={styles.reports__logo}>BillMate.io</div>
+            <div className={styles.reports__logo}>BillApp.io</div>
             <nav className={styles.reports__nav}>
               <Link
                 href="/dashboard/analytics"

@@ -1,4 +1,4 @@
-# BillMate.io - Factoring Platform
+# BillApp.io - Factoring Platform
 
 Modern factoring platform built with Next.js, React class components, and BEM methodology.
 

@@ -75,7 +75,6 @@ class Debtors extends Component<{}, DebtorsState> {
 
     this.loadData();
 
-    // Mark sample data
     mockDebtors.forEach((deb) => {
       sampleDataService.markAsSample(deb.id, 'debtor');
     });
@@ -223,7 +222,6 @@ class Debtors extends Component<{}, DebtorsState> {
       countryCounts[deb.country] = (countryCounts[deb.country] || 0) + 1;
     });
 
-    // Multipliers for different periods (simulating different time ranges)
     const periodMultipliers: Record<string, number> = {
       week: 0.6,
       month: 1.0,
@@ -243,7 +241,6 @@ class Debtors extends Component<{}, DebtorsState> {
   getCreditLimitData = () => {
     const { debtors, selectedPeriod } = this.state;
     
-    // Multipliers for different periods
     const periodMultipliers: Record<string, number> = {
       week: 0.8,
       month: 1.0,
@@ -279,7 +276,6 @@ class Debtors extends Component<{}, DebtorsState> {
     const countryData = this.getCountryData();
     const creditLimitData = this.getCreditLimitData();
     
-    // Calculate totals based on period
     const periodMultipliers: Record<string, number> = {
       week: 0.8,
       month: 1.0,
@@ -296,7 +292,7 @@ class Debtors extends Component<{}, DebtorsState> {
       <div className={styles.debtors}>
         <header className={styles.debtors__header}>
           <div className={styles.debtors__header_container}>
-            <div className={styles.debtors__logo}>BillMate.io</div>
+            <div className={styles.debtors__logo}>BillApp.io</div>
             <nav className={styles.debtors__nav}>
               <Link
                 href="/dashboard/analytics"

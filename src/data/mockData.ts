@@ -1,5 +1,3 @@
-// Mock data for BillMate.io application
-
 export interface User {
   name: string;
   email: string;

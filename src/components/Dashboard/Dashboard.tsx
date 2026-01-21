@@ -57,16 +57,13 @@ class Dashboard extends Component<{}, DashboardState> {
   }
 
   componentDidMount() {
-    // Check authentication
     if (!authService.isAuthenticated()) {
       window.location.href = '/onboarding';
       return;
     }
 
-    // Load data from localStorage or use sample data
     this.loadData();
     
-    // Mark sample data
     mockInvoices.forEach((inv) => {
       sampleDataService.markAsSample(inv.id, 'invoice');
     });
@@ -76,11 +73,9 @@ class Dashboard extends Component<{}, DashboardState> {
   }
 
   loadData = () => {
-    // Load invoices from localStorage or use sample
     const storedInvoices = storageService.getItems<Invoice>(STORAGE_KEYS.INVOICES);
     const allInvoices = [...mockInvoices, ...storedInvoices];
     
-    // Load debtors from localStorage or use sample
     const storedDebtors = storageService.getItems<Debtor>(STORAGE_KEYS.DEBTORS);
     const allDebtors = [...mockDebtors, ...storedDebtors];
 
@@ -111,7 +106,6 @@ class Dashboard extends Component<{}, DashboardState> {
       date: new Date().toISOString().split('T')[0],
     };
 
-    // Save to localStorage (not sample data)
     storageService.addItem(STORAGE_KEYS.INVOICES, newInvoiceItem);
 
     this.setState({
@@ -122,7 +116,6 @@ class Dashboard extends Component<{}, DashboardState> {
   };
 
   handleDeleteInvoice = (id: string) => {
-    // Check if it's sample data
     if (sampleDataService.isSample(id, 'invoice')) {
       this.setState({
         showNotificationModal: true,
@@ -154,7 +147,6 @@ class Dashboard extends Component<{}, DashboardState> {
       invoice.id === id ? { ...invoice, status: 'approved' as const } : invoice
     );
     
-    // Update in localStorage if it's a stored invoice
     const storedInvoices = storageService.getItems<Invoice>(STORAGE_KEYS.INVOICES);
     const isStored = storedInvoices.some((inv) => inv.id === id);
     if (isStored) {
@@ -172,7 +164,6 @@ class Dashboard extends Component<{}, DashboardState> {
       invoice.id === id ? { ...invoice, status: 'blocked' as const } : invoice
     );
     
-    // Update in localStorage if it's a stored invoice
     const storedInvoices = storageService.getItems<Invoice>(STORAGE_KEYS.INVOICES);
     const isStored = storedInvoices.some((inv) => inv.id === id);
     if (isStored) {
@@ -211,7 +202,6 @@ class Dashboard extends Component<{}, DashboardState> {
   };
 
   handleDeleteDebtor = (id: string) => {
-    // Check if it's sample data
     if (sampleDataService.isSample(id, 'debtor')) {
       this.setState({
         showNotificationModal: true,
@@ -316,7 +306,7 @@ class Dashboard extends Component<{}, DashboardState> {
       <div className={styles.dashboard}>
         <header className={styles.dashboard__header}>
           <div className={styles.dashboard__header_container}>
-            <div className={styles.dashboard__logo}>BillMate.io</div>
+            <div className={styles.dashboard__logo}>BillApp.io</div>
             <nav className={styles.dashboard__nav}>
               <Link
                 href="/dashboard/analytics"

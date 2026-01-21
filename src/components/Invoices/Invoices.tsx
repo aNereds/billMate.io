@@ -75,7 +75,6 @@ class Invoices extends Component<{}, InvoicesState> {
 
     this.loadData();
 
-    // Mark sample data
     mockInvoices.forEach((inv) => {
       sampleDataService.markAsSample(inv.id, 'invoice');
     });
@@ -220,7 +219,6 @@ class Invoices extends Component<{}, InvoicesState> {
   getStatusData = () => {
     const { invoices, selectedPeriod } = this.state;
     
-    // Base counts from actual data
     const baseStatusCounts: Record<string, number> = {
       approved: 0,
       processing: 0,
@@ -234,7 +232,6 @@ class Invoices extends Component<{}, InvoicesState> {
       baseStatusCounts[inv.status] = (baseStatusCounts[inv.status] || 0) + 1;
     });
 
-    // Multipliers for different periods (simulating different time ranges)
     const periodMultipliers: Record<string, Record<string, number>> = {
       week: {
         approved: 0.7,
@@ -314,7 +311,6 @@ class Invoices extends Component<{}, InvoicesState> {
       statusAmounts[inv.status] = (statusAmounts[inv.status] || 0) + inv.amount;
     });
 
-    // Multipliers for different periods
     const periodMultipliers: Record<string, number> = {
       week: 0.7,
       month: 1.0,
@@ -350,7 +346,6 @@ class Invoices extends Component<{}, InvoicesState> {
     const statusData = this.getStatusData();
     const amountData = this.getAmountByStatus();
     
-    // Calculate totals based on period
     const periodMultipliers: Record<string, number> = {
       week: 0.7,
       month: 1.0,
@@ -367,7 +362,7 @@ class Invoices extends Component<{}, InvoicesState> {
       <div className={styles.invoices}>
         <header className={styles.invoices__header}>
           <div className={styles.invoices__header_container}>
-            <div className={styles.invoices__logo}>BillMate.io</div>
+            <div className={styles.invoices__logo}>BillApp.io</div>
             <nav className={styles.invoices__nav}>
               <Link
                 href="/dashboard/analytics"

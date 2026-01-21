@@ -42,7 +42,7 @@ class Home extends Component<{}, HomeState> {
       <div className={styles.home}>
         <header className={styles.home__header}>
           <div className={styles.home__header_container}>
-            <div className={styles.home__logo}>BillMate.io</div>
+            <div className={styles.home__logo}>BillApp.io</div>
             <nav className={styles.home__nav}>
               <Link href="#features" className={styles.home__nav_link}>
                 Features
@@ -195,10 +195,10 @@ class Home extends Component<{}, HomeState> {
                     <h3>Email</h3>
                     <p>
                       <a
-                        href="mailto:info@billmate.io"
+                        href="mailto:info@billapp.io"
                         className={styles.home__contact_link}
                       >
-                        info@billmate.io
+                        info@billapp.io
                       </a>
                     </p>
                   </div>
@@ -231,7 +231,7 @@ class Home extends Component<{}, HomeState> {
 
         <footer className={styles.home__footer}>
           <div className={styles.home__container}>
-            <p>© 2024 BillMate.io. All rights reserved.</p>
+            <p>© { new Date().getFullYear() } BillApp.io. All rights reserved.</p>
           </div>
         </footer>
       </div>

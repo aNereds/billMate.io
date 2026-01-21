@@ -1,5 +1,3 @@
-// Authentication utilities with localStorage
-
 export interface AuthUser {
   name: string;
   email: string;
@@ -8,65 +6,54 @@ export interface AuthUser {
   onboardingCompleted: boolean;
 }
 
-const AUTH_KEY = 'billmate_auth';
-const SAMPLE_DATA_KEY = 'billmate_sample_data';
+const AUTH_KEY = 'billapp_auth';
+const SAMPLE_DATA_KEY = 'billapp_sample_data';
 
 export const authService = {
-  // Check if user is authenticated
   isAuthenticated: (): boolean => {
     if (typeof window === 'undefined') return false;
     const auth = localStorage.getItem(AUTH_KEY);
     return auth !== null;
   },
 
-  // Get current user
   getCurrentUser: (): AuthUser | null => {
     if (typeof window === 'undefined') return null;
     const auth = localStorage.getItem(AUTH_KEY);
     return auth ? JSON.parse(auth) : null;
   },
 
-  // Login user
   login: (user: AuthUser): void => {
     if (typeof window === 'undefined') return;
     localStorage.setItem(AUTH_KEY, JSON.stringify(user));
   },
 
-  // Complete onboarding
   completeOnboarding: (user: AuthUser): void => {
     if (typeof window === 'undefined') return;
     const updatedUser = { ...user, onboardingCompleted: true };
     localStorage.setItem(AUTH_KEY, JSON.stringify(updatedUser));
   },
 
-  // Logout - clear all localStorage data to restore default state
   logout: (): void => {
     if (typeof window === 'undefined') return;
-    // Clear all localStorage keys used by the application
-    // This will restore all mock data on next login
     localStorage.removeItem(AUTH_KEY);
     localStorage.removeItem(SAMPLE_DATA_KEY);
-    localStorage.removeItem('billmate_invoices');
-    localStorage.removeItem('billmate_debtors');
-    localStorage.removeItem('billmate_clients');
-    localStorage.removeItem('billmate_payouts');
-    localStorage.removeItem('billmate_notifications');
-    localStorage.removeItem('billmate_integrations');
-    localStorage.removeItem('billmate_security');
-    localStorage.removeItem('billmate_reports');
-    
-    // Clear all localStorage to ensure complete reset
+    localStorage.removeItem('billapp_invoices');
+    localStorage.removeItem('billapp_debtors');
+    localStorage.removeItem('billapp_clients');
+    localStorage.removeItem('billapp_payouts');
+    localStorage.removeItem('billapp_notifications');
+    localStorage.removeItem('billapp_integrations');
+    localStorage.removeItem('billapp_security');
+    localStorage.removeItem('billapp_reports');
     localStorage.clear();
   },
 
-  // Check if onboarding is completed
   isOnboardingCompleted: (): boolean => {
     const user = authService.getCurrentUser();
     return user?.onboardingCompleted === true;
   },
 };
 
-// Sample data protection - mark sample items
 export const sampleDataService = {
   markAsSample: (id: string, type: 'invoice' | 'debtor' | 'client' | 'payout'): void => {
     if (typeof window === 'undefined') return;

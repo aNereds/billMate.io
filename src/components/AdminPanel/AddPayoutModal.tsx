@@ -46,7 +46,6 @@ class AddPayoutModal extends Component<AddPayoutModalProps, AddPayoutModalState>
 
   componentDidUpdate(prevProps: AddPayoutModalProps) {
     if (this.props.isOpen && !prevProps.isOpen) {
-      // Reset form when modal opens
       const today = new Date().toISOString().split('T')[0];
       this.setState({
         formData: {
@@ -57,10 +56,8 @@ class AddPayoutModal extends Component<AddPayoutModalProps, AddPayoutModalState>
         },
         errors: {},
       });
-      // Add escape key listener
       document.addEventListener('keydown', this.handleEscapeKey);
     } else if (!this.props.isOpen && prevProps.isOpen) {
-      // Remove escape key listener when modal closes
       document.removeEventListener('keydown', this.handleEscapeKey);
     }
   }
@@ -102,7 +99,6 @@ class AddPayoutModal extends Component<AddPayoutModalProps, AddPayoutModalState>
     if (!formData.invoiceId.trim()) {
       errors.invoiceId = 'Invoice ID is required';
     } else {
-      // Validate invoice ID format (e.g., INV-001)
       const invoiceIdRegex = /^INV-\d+$/i;
       if (!invoiceIdRegex.test(formData.invoiceId.trim())) {
         errors.invoiceId = 'Invoice ID must be in format INV-XXX';

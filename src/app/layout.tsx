@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import '../styles/globals.scss'
 
 export const metadata: Metadata = {
-  title: 'BillMate.io - Factoring Platform',
+  title: 'BillApp.io - Factoring Platform',
   description: 'Modern factoring platform for businesses',
   icons: {
     icon: '/favicon.svg',
